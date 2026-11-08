@@ -1,0 +1,24 @@
+{
+  "name": "PulseCare · ECG & Health Monitor",
+  "short_name": "PulseCare",
+  "description": "Camera pulse scan, Bluetooth heart-rate / ECG / BP devices, health history and ECG reports. Data stays on your phone.",
+  "id": "./",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f6f9",
+  "theme_color": "#087f82",
+  "categories": ["health", "medical", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Pulse scan", "url": "./#pulse", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Add blood pressure", "url": "./#bp", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "History", "url": "./#history", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -1,177 +1,651 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f8fb"><title>PulseCare · Mobile Health Monitor</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#087f82">
+<meta name="description" content="PulseCare – camera pulse scan, Bluetooth heart-rate, ECG and blood-pressure devices, health history and ECG reports. Data stays on your phone.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PulseCare">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>PulseCare · ECG &amp; Health Monitor</title>
 <style>
-:root{--ink:#162b3d;--muted:#718394;--line:#e2eaf0;--paper:#fff;--bg:#f4f7fa;--teal:#087f82;--mint:#e8f5f1;--navy:#102a3f;--shadow:0 8px 24px #19385110}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;padding:0 17px 36px;min-height:100vh}.top{height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;gap:10px;align-items:center;font-weight:760;font-size:18px;letter-spacing:-.5px}.logo{width:36px;height:36px;border-radius:12px;background:var(--teal);color:white;display:grid;place-items:center;font-size:20px}.brand small{display:block;font-size:10px;letter-spacing:.8px;color:var(--muted);font-weight:600}.badge{font-size:10px;font-weight:700;letter-spacing:.45px;border-radius:99px;padding:7px 10px;background:#eaf4f5;color:#32777a}.intro{padding:22px 1px 14px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);font-weight:750}.intro h1{font-size:25px;line-height:1.2;letter-spacing:-.7px;margin:5px 0}.intro p{font-size:13px;color:var(--muted);margin:0}.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.card-title{font-size:14px;font-weight:750}.card-help{font-size:11px;color:var(--muted);margin-top:2px}.camera-box{position:relative;min-height:220px;border-radius:12px;background:#122532;overflow:hidden;display:grid;place-items:center}.camera-box video,.camera-box img{display:block;width:100%;height:100%;max-height:360px;object-fit:contain}.camera-box video[hidden],.camera-box img[hidden]{display:none}.placeholder{padding:28px 20px;text-align:center;color:#d0dce3}.placeholder-icon{height:48px;width:48px;border-radius:16px;background:#ffffff14;margin:0 auto 12px;display:grid;place-items:center;font-size:23px}.placeholder b{display:block;color:#fff;font-size:14px}.placeholder span{font-size:12px;color:#b5c4cd}.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.btn{min-height:44px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:13px;font-weight:680}.btn-primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn:disabled{opacity:.45;cursor:not-allowed}.row .btn{flex:1}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{min-width:0}.field label{display:block;color:#5d7181;font-size:11px;font-weight:700;margin-bottom:5px}.field input,.field textarea{width:100%;min-height:44px;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font-size:16px;outline-color:#79b9b4}.field textarea{min-height:76px;resize:vertical}.full{grid-column:1/-1}.report-ready{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#f1f8f7;border-radius:10px;color:#456d6a;font-size:12px;margin-bottom:12px}.report-ready b{display:block;color:#235d59;font-size:13px}.downloads{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.downloads .btn{padding:10px 7px}.notice{padding:12px 13px;border:1px solid #e3ebef;border-radius:11px;color:#687d8a;font-size:11px;line-height:1.55;background:#fbfdfe;margin-top:3px}.notice b{color:#3e5868}.error{color:#a13b43;font-size:12px;padding-top:8px}.footer{text-align:center;color:#8495a2;font-size:10px;padding:10px 0}.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#173449;color:white;border-radius:10px;padding:11px 15px;font-size:12px;transition:.2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:420px){.app{padding-inline:13px}.card{padding:14px}.camera-box{min-height:190px}.downloads{grid-template-columns:1fr}.downloads .btn{text-align:left;padding-left:14px}.field-grid{gap:9px}.intro h1{font-size:23px}}@media print{body{background:#fff;color:#111;font:12pt/1.45 Arial,sans-serif}.app{max-width:none;padding:0}.top,.intro,.card:not(#reportCard),.footer,.screen-actions,.downloads,.report-ready{display:none!important}#reportCard{box-shadow:none;border:0;margin:0;padding:0}.print-title{display:block!important}#reportCard .card-head{display:none}.print-photo{display:block!important;max-width:100%;max-height:340px;object-fit:contain;margin:14px 0}.report-table{width:100%;border-collapse:collapse;margin-top:12px}.report-table th,.report-table td{padding:8px;border:1px solid #bbb;text-align:left;vertical-align:top}.report-table th{width:30%;background:#f2f5f6}.print-disclaimer{display:block!important;border-top:1px solid #bbb;padding-top:10px;margin-top:16px;font-size:9pt;color:#555}.report-note{white-space:pre-wrap}}
-
-/* Camera PPG pulse monitor */
-.ppg-panel{border:1px solid #cfe4e1;background:linear-gradient(145deg,#f4fbfa,#fff)}
-.ppg-video-wrap{position:relative;background:#102532;border-radius:12px;min-height:150px;overflow:hidden;display:grid;place-items:center}
-#ppgVideo{width:100%;max-height:230px;object-fit:cover}
-.ppg-guide{color:#d4e3e8;text-align:center;padding:20px;font-size:12px}
-.ppg-guide strong{display:block;color:#fff;font-size:14px;margin-bottom:5px}
-.ppg-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.ppg-stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px}
-.ppg-stat small{display:block;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.ppg-stat strong{font-size:25px;letter-spacing:-.7px}
-.ppg-stat em{font-style:normal;color:var(--muted);font-size:11px}
-#ppgWave{display:block;width:100%;height:100px;background:#102532;border-radius:10px;margin-top:10px}
-.ppg-status{font-size:12px;color:#526d78;margin-top:9px;min-height:18px}
-.ppg-caution{font-size:11px;color:#657b88;line-height:1.5;margin-top:10px}
-.ppg-actions .btn{flex:1}
-
-/* PPG is intentionally a phone-only feature */
-@media (min-width:768px){#ppgCard{display:none!important}}
-
-/* External BLE ECG and heart-rate sensor panels */
-.ble-panel{border:1px solid #d9e5ee;background:#fff}
-.ble-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ble-field label{display:block;color:#5d7181;font-size:11px;font-weight:700;margin:0 0 5px}
-.ble-field input{width:100%;min-height:42px;padding:9px;border:1px solid var(--line);border-radius:9px;font-size:14px}
-.ble-status{font-size:12px;color:#526d78;min-height:18px;margin-top:9px}
-.ble-metric{font-size:25px;font-weight:750}
-#bleEcgWave{width:100%;height:135px;display:block;background:#102532;border-radius:10px;margin-top:10px}
-.ble-note{font-size:11px;color:#657b88;line-height:1.5;margin-top:9px}
-@media(max-width:767px){#bleCard{display:block}}
-@media(min-width:768px){#bleCard{display:none!important}}
-.vitals-history{margin-top:14px}.vitals-history table{width:100%;border-collapse:collapse;font-size:12px}.vitals-history th,.vitals-history td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:left}.vitals-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.vitals-empty{font-size:12px;color:var(--muted);padding:12px 0}.bp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bp-grid .field{min-width:0}.bp-grid input{width:100%}.bp-help{font-size:11px;color:var(--muted);line-height:1.5;margin-top:8px}
-.health-dashboard{background:linear-gradient(145deg,#fff,#f2faf8)}.dash-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.dash-heading h2{font-size:21px;line-height:1.2;margin:5px 0}.dash-heading p{font-size:12px;color:var(--muted);margin:0}.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dash-tile{appearance:none;text-align:left;text-decoration:none;color:var(--ink);font:inherit;border:1px solid var(--line);background:#fff;border-radius:13px;padding:13px;min-height:148px;display:flex;flex-direction:column;align-items:flex-start;gap:3px;cursor:pointer}.dash-tile:active{transform:scale(.985)}.dash-icon{width:30px;height:30px;border-radius:10px;background:var(--mint);color:var(--teal);display:grid;place-items:center;font-size:19px;margin-bottom:5px}.dash-label{font-size:11px;color:var(--muted);font-weight:650}.dash-tile strong{font-size:25px;line-height:1.15}.dash-tile strong.dash-text{font-size:16px;margin:4px 0}.dash-tile small{font-size:10px;color:var(--muted)}.dash-action{font-size:11px;font-weight:750;color:var(--teal);margin-top:auto;padding-top:7px}.dash-note{margin-top:12px;padding:10px 12px;background:#edf6f4;border-radius:10px;font-size:11px;color:#45616a;line-height:1.5}@media(max-width:390px){.dash-heading{display:block}.dash-heading .badge{display:inline-block;margin-top:8px}.dash-tile{padding:10px;min-height:140px}}
-</style></head>
-<body><main class="app"><header class="top"><div class="brand"><div class="logo" aria-hidden="true">⌁</div><div>PulseCare<small>MOBILE HEALTH MONITOR</small></div></div><span class="badge">MOBILE APP</span></header>
-<section class="intro"><div class="eyebrow">PERSONAL HEALTH MONITOR</div><h1>Health monitoring</h1><p>Measure pulse with your camera, connect compatible health devices, and keep a history of your readings.</p></section>
-<section class="card health-dashboard" id="healthHome">
- <div class="dash-heading"><div><div class="eyebrow">PERSONAL HEALTH OVERVIEW</div><h2>Today's health check</h2><p>Choose a measurement below. Results are saved on this phone.</p></div><span class="badge">PRIVATE DEVICE STORAGE</span></div>
- <div class="dash-grid">
-  <button class="dash-tile pulse-tile" id="quickPulseStart" type="button"><span class="dash-icon">♥</span><span class="dash-label">Pulse rate</span><strong id="quickPulseValue">--</strong><small>BPM · camera scan</small><span class="dash-action">Tap to measure →</span></button>
-  <a class="dash-tile" href="#bleBpCard"><span class="dash-icon">◉</span><span class="dash-label">Blood pressure</span><strong class="dash-text">BP cuff</strong><small>Bluetooth or manual entry</small><span class="dash-action">Connect / enter →</span></a>
-  <a class="dash-tile" href="#bleCard"><span class="dash-icon">〰</span><span class="dash-label">ECG / heart sensor</span><strong class="dash-text">External device</strong><small>Compatible Bluetooth sensor</small><span class="dash-action">Connect device →</span></a>
-  <a class="dash-tile" href="#vitalsHistoryCard"><span class="dash-icon">▤</span><span class="dash-label">Health history</span><strong class="dash-text">Your records</strong><small>Saved readings & CSV export</small><span class="dash-action">View history →</span></a>
- </div>
- <div class="dash-note"><b>How pulse scan works:</b> tap “Tap to measure”, allow camera access, then gently cover the rear camera and flash with your fingertip for 30 seconds. Touching the screen alone cannot detect a pulse.</div>
-</section>
-<section class="card"><div class="card-head"><div><div class="card-title">ECG image</div><div class="card-help" id="cameraStatus">Camera opens only after you tap Capture photo.</div></div></div><div class="camera-box"><video id="video" autoplay playsinline muted hidden></video><img id="preview" alt="Captured ECG image preview" hidden><div class="placeholder" id="placeholder"><div class="placeholder-icon" aria-hidden="true">▧</div><b>Ready to capture</b><span>Place the ECG strip in view, or choose an existing photo.</span></div></div><div class="row screen-actions"><button class="btn btn-primary" id="cameraBtn" type="button">Open camera</button><button class="btn" id="captureBtn" type="button" hidden>Capture photo</button><button class="btn" id="retakeBtn" type="button" hidden>Retake</button><button class="btn" id="uploadBtn" type="button">Choose photo</button><input class="sr-only" id="fileInput" type="file" accept="image/*" capture="environment"></div><div class="error" id="cameraError" role="alert" hidden></div></section>
-
-<section class="card ppg-panel" id="ppgCard">
- <div class="card-head"><div><div class="card-title">Camera pulse monitor</div><div class="card-help">Touch start, then place your fingertip gently over the rear camera and flash for a 30-second pulse scan</div></div><span class="badge">PPG</span></div>
- <div class="ppg-video-wrap"><video id="ppgVideo" autoplay playsinline muted hidden></video><div class="ppg-guide" id="ppgGuide"><strong>Fingertip pulse scan</strong>Cover the rear camera lens and flash gently with your fingertip. Keep still and use light pressure.</div></div>
- <div class="ppg-stats"><div class="ppg-stat"><small>Estimated pulse</small><strong id="ppgBpm">--</strong> <em>BPM</em></div><div class="ppg-stat"><small>Signal quality</small><strong id="ppgQuality" style="font-size:17px">Not started</strong><em id="ppgCountdown">30 sec scan</em></div></div>
- <canvas id="ppgWave" width="640" height="150" aria-label="Live pulse waveform visualization"></canvas>
- <div class="ppg-status" id="ppgStatus" role="status" aria-live="polite">Ready. Start the scan and allow camera access.</div>
- <div class="row ppg-actions screen-actions"><button class="btn btn-primary" id="ppgStart" type="button">Start 30-second scan</button><button class="btn" id="ppgStop" type="button" disabled>Stop</button></div>
- <div class="ppg-caution"><b>Important:</b> This is an experimental camera-based pulse estimate (PPG), not an electrical ECG. Results can be affected by movement, lighting, skin contact, camera hardware and circulation. It is not a diagnosis or a substitute for a medical device. Do not use it for emergencies or treatment decisions.</div>
-</section>
-
-
-<section class="card ble-panel" id="bleCard">
- <div class="card-head"><div><div class="card-title">External Bluetooth monitoring</div><div class="card-help">Connect a compatible BLE sensor from your phone</div></div><span class="badge">BLE</span></div>
- <div class="card" style="box-shadow:none;margin:0 0 12px;padding:12px">
-  <div class="card-title">Bluetooth heart-rate sensor</div>
-  <div class="card-help">Standard Bluetooth Heart Rate Service · live BPM</div>
-  <div class="row"><div class="ble-metric" id="bleHrBpm">-- <span style="font-size:12px;font-weight:500">BPM</span></div><button class="btn btn-primary" id="bleHrConnect" type="button">Connect HR sensor</button><button class="btn" id="bleHrDisconnect" type="button" disabled>Disconnect</button></div>
-  <div class="ble-status" id="bleHrStatus" role="status" aria-live="polite">Not connected.</div>
-  <button class="btn" id="bleHrUse" type="button" disabled>Use BPM in report</button>
- </div>
- <div class="card" style="box-shadow:none;margin:0;padding:12px">
-  <div class="card-title">External electrical ECG waveform</div>
-  <div class="card-help">For ECG devices exposing a BLE GATT notification characteristic</div>
-  <div class="ble-grid" style="margin-top:10px">
-   <div class="ble-field"><label for="ecgServiceUuid">ECG service UUID</label><input id="ecgServiceUuid" placeholder="Device service UUID"></div>
-   <div class="ble-field"><label for="ecgCharUuid">ECG characteristic UUID</label><input id="ecgCharUuid" placeholder="Notify characteristic UUID"></div>
-   <div class="ble-field"><label for="ecgSampleRate">Sample rate (Hz)</label><input id="ecgSampleRate" type="number" min="1" max="5000" value="250"></div>
-  </div>
-  <div class="row"><button class="btn btn-primary" id="ecgBleConnect" type="button">Connect ECG device</button><button class="btn" id="ecgBleDisconnect" type="button" disabled>Disconnect</button></div>
-  <canvas id="bleEcgWave" width="720" height="180" aria-label="Incoming external ECG waveform"></canvas>
-  <div class="row" style="justify-content:space-between"><span class="ble-status" id="ecgBleStatus" role="status" aria-live="polite">Not connected. Enter the service and characteristic UUIDs supplied by your ECG device manufacturer.</span><span class="ble-status" id="ecgSampleCount">0 samples</span></div>
-  <button class="btn" id="ecgCsvBtn" type="button" disabled>Download ECG samples CSV</button>
-  <div class="ble-note"><b>Device compatibility:</b> ECG manufacturers use different BLE services, packet layouts, sample formats and scaling. This input expects signed 16-bit little-endian samples in notification packets. It displays received samples only; it does not filter, interpret, diagnose, or verify the signal. Do not connect a device unless its documentation confirms this format. A standard heart-rate strap provides BPM, not an ECG waveform.</div>
- </div>
-</section>
-
-<section class="card vitals-history" id="vitalsHistoryCard"><div class="card-head"><div><div class="card-title">Saved pulse & heart-rate history</div><div class="card-help">Stored privately in this browser on this phone</div></div><span class="badge" id="vitalsCount">0 saved</span></div><div class="vitals-actions"><button class="btn btn-primary" id="saveVitalsNow" type="button">Save current readings</button><button class="btn" id="exportVitals" type="button" disabled>Export history CSV</button><button class="btn" id="clearVitals" type="button" disabled>Clear history</button></div><div id="vitalsHistoryList" aria-live="polite"><div class="vitals-empty">No readings saved yet.</div></div><div class="ble-note">Readings remain on this browser/device using local storage. They are not uploaded or synced. Clearing browser site data may erase them. Saved values are estimates or sensor readings as labelled, not medical diagnoses.</div></section>
-
-<section class="card" id="bleBpCard"><div class="card-head"><div><div class="card-title">Bluetooth blood pressure monitor</div><div class="card-help">Connect a cuff monitor that supports the standard Bluetooth Blood Pressure Service</div></div><span class="badge">BLE BP</span></div><div class="row"><button class="btn btn-primary" id="bleBpConnect" type="button">Connect BP monitor</button><button class="btn" id="bleBpDisconnect" type="button" disabled>Disconnect</button></div><div class="bp-grid" style="margin-top:12px"><div class="field"><label>Systolic</label><div class="ble-metric" id="bleBpSys">-- <span style="font-size:12px">mmHg</span></div></div><div class="field"><label>Diastolic</label><div class="ble-metric" id="bleBpDia">-- <span style="font-size:12px">mmHg</span></div></div><div class="field"><label>Mean arterial pressure</label><div class="ble-metric" id="bleBpMap">-- <span style="font-size:12px">mmHg</span></div></div><div class="field"><label>Pulse rate</label><div class="ble-metric" id="bleBpPulse">-- <span style="font-size:12px">BPM</span></div></div></div><div class="ble-status" id="bleBpStatus" role="status" aria-live="polite">Not connected. Your BP cuff must support the standard BLE Blood Pressure Service (0x1810).</div><div class="bp-help">Only compatible Bluetooth cuff monitors will appear. Many BP devices use proprietary Bluetooth protocols and may not connect. The phone camera cannot measure systolic or diastolic pressure.</div></section>
-\n<section class="card" id="bpCard"><div class="card-head"><div><div class="card-title">Blood pressure measurement</div><div class="card-help">Enter readings from a validated upper-arm BP monitor</div></div><span class="badge">BP</span></div><div class="bp-grid"><div class="field"><label for="bpSystolic">Systolic (upper number)</label><input id="bpSystolic" type="number" inputmode="numeric" min="50" max="260" placeholder="e.g. 120"></div><div class="field"><label for="bpDiastolic">Diastolic (lower number)</label><input id="bpDiastolic" type="number" inputmode="numeric" min="30" max="160" placeholder="e.g. 80"></div><div class="field"><label for="bpPulse">Pulse (BPM, optional)</label><input id="bpPulse" type="number" inputmode="numeric" min="30" max="220" placeholder="e.g. 72"></div></div><div class="bp-help">This phone cannot reliably measure blood pressure using its camera. Take the measurement with a validated cuff monitor and enter the displayed values. This app records your entry; it does not measure or diagnose blood pressure.</div><div class="vitals-actions"><button class="btn" id="saveBp" type="button">Save BP reading</button></div><div class="ble-status" id="bpStatus" role="status" aria-live="polite">No BP reading entered.</div></section><section class="card"><div class="card-head"><div><div class="card-title">Report details</div><div class="card-help">Optional fields are included as entered.</div></div></div><div class="field-grid"><div class="field"><label for="patient">Patient / reference</label><input id="patient" autocomplete="off" placeholder="Name or record ID"></div><div class="field"><label for="recorded">Date and time</label><input id="recorded" type="datetime-local"></div><div class="field"><label for="rate">Heart rate (bpm)</label><input id="rate" type="number" inputmode="numeric" min="1" max="400" placeholder="Enter from device report"></div><div class="field"><label for="lead">Lead / source</label><input id="lead" placeholder="e.g. Lead II"></div><div class="field full"><label for="notes">Notes</label><textarea id="notes" placeholder="Add context or observations from the source report"></textarea></div></div></section>
-<section class="card" id="reportCard"><div class="card-head"><div><div class="card-title">Export report</div><div class="card-help">Image and entered details are included where supported.</div></div></div><div class="print-title" style="display:none"><h1>ECG Capture Report</h1><p>Captured from user supplied image · not clinically interpreted</p></div><div class="report-ready"><span aria-hidden="true">✓</span><div><b>Report is ready to export</b><span>Review your entries before sharing or printing.</span></div></div><table class="report-table"><tbody id="reportRows"></tbody></table><img class="print-photo" id="printPhoto" alt="ECG source image" hidden style="display:none"><div class="print-disclaimer" style="display:none"><b>Important:</b> This app stores a photograph and user-entered details only. It does not acquire electrical ECG signals, measure heart activity, interpret ECGs, identify conditions, or replace review by a qualified clinician. Verify this report against the original source.</div><div class="downloads"><button class="btn btn-primary" id="pdfBtn" type="button">Save as PDF</button><button class="btn" id="excelBtn" type="button">Download Excel (.xls)</button><button class="btn" id="wordBtn" type="button">Download Word (.doc)</button></div></section>
-<div class="notice"><b>Privacy:</b> Camera access starts only after you choose Open camera. Captures and report fields remain in this browser session; nothing is uploaded by this app. Use a trusted HTTPS address on your phone for camera access. No diagnosis is provided.</div><footer class="footer">Pulse ECG · Image capture and report export</footer></main><div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
-const $=id=>document.getElementById(id);let stream=null,imageData='',imageName='';
-const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());$('recorded').value=now.toISOString().slice(0,16);
-function fields(){return [['Patient / reference',$('patient').value.trim()||'Not provided'],['Date and time',$('recorded').value||'Not provided'],['Heart rate (bpm)',$('rate').value?$('rate').value+' bpm':'Not provided'],['Camera pulse estimate (PPG)',ppg.bpm?ppg.bpm+' BPM':'Not captured'],['Blood pressure',($('bpSystolic').value&&$('bpDiastolic').value)?$('bpSystolic').value+'/'+$('bpDiastolic').value+' mmHg':'Not provided'],['BP pulse',$('bpPulse').value?$('bpPulse').value+' BPM':'Not provided'],['Lead / source',$('lead').value.trim()||'Not provided'],['Image file',imageName||'No image attached'],['Notes',$('notes').value.trim()||'None'],['Interpretation','Not provided by this app']]}function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function updateReport(){const rows=$('reportRows');rows.innerHTML='';fields().forEach(([k,v])=>{const tr=document.createElement('tr');const th=document.createElement('th');th.textContent=k;const td=document.createElement('td');td.textContent=v;td.className=k==='Notes'?'report-note':'';tr.append(th,td);rows.append(tr)});$('printPhoto').hidden=!imageData;$('printPhoto').src=imageData||''}
-function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2400)}
-function showImage(data,name){imageData=data;imageName=name||'ecg-image.jpg';$('preview').src=data;$('preview').hidden=false;$('video').hidden=true;$('placeholder').hidden=true;$('captureBtn').hidden=true;$('retakeBtn').hidden=false;$('cameraBtn').hidden=false;$('cameraBtn').textContent='Open camera';stopCamera();updateReport();toast('Image added to this report.')}
-async function openCamera(){ $('cameraError').hidden=true; if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){$('cameraError').textContent='Camera access is unavailable here. Open this page over HTTPS on a supported mobile browser, or choose a photo instead.';$('cameraError').hidden=false;return}try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});$('video').srcObject=stream;$('video').hidden=false;$('preview').hidden=true;$('placeholder').hidden=true;$('cameraBtn').hidden=true;$('captureBtn').hidden=false;$('retakeBtn').hidden=true;$('cameraStatus').textContent='Camera is active. Tap Capture photo when ready.'}catch(e){$('cameraError').textContent=e.name==='NotAllowedError'?'Camera permission was not granted. Allow camera access in your browser settings or choose a photo.':'Could not open the camera. Try choosing a photo instead.';$('cameraError').hidden=false}}
-function stopCamera(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}if($('video'))$('video').srcObject=null}
-$('cameraBtn').addEventListener('click',openCamera);$('captureBtn').addEventListener('click',()=>{const v=$('video');if(!v.videoWidth){toast('Camera is still starting. Try again in a moment.');return}const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);showImage(c.toDataURL('image/jpeg',.88),'ecg-capture.jpg');$('cameraStatus').textContent='Image captured and ready to include in the report.'});$('uploadBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){toast('Choose an image file.');return}const reader=new FileReader();reader.onload=()=>showImage(reader.result,f.name);reader.readAsDataURL(f);e.target.value=''});$('retakeBtn').addEventListener('click',()=>{imageData='';imageName='';$('preview').hidden=true;$('placeholder').hidden=false;$('retakeBtn').hidden=true;$('cameraStatus').textContent='Camera opens only after you tap Capture photo.';updateReport()});
-function download(name,mime,content){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
-$('excelBtn').addEventListener('click',()=>{const rows=fields();const xml=`<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="ECG Report"><Table><Row><Cell><Data ss:Type="String">ECG Capture Report</Data></Cell></Row>${rows.map(([k,v])=>`<Row><Cell><Data ss:Type="String">${esc(k)}</Data></Cell><Cell><Data ss:Type="String">${esc(v)}</Data></Cell></Row>`).join('')}<Row><Cell><Data ss:Type="String">Disclaimer</Data></Cell><Cell><Data ss:Type="String">Image and entered details only. Not an ECG measurement or medical interpretation.</Data></Cell></Row></Table></Worksheet></Workbook>`;download('ecg-report.xls','application/vnd.ms-excel;charset=utf-8',xml);toast('Excel report downloaded.')});
-$('wordBtn').addEventListener('click',()=>{const rows=fields().map(([k,v])=>`<tr><th>${esc(k)}</th><td>${esc(v).replace(/\n/g,'<br>')}</td></tr>`).join('');const photo=imageData?`<h2>Captured image</h2><img style="max-width:100%;max-height:420px" src="${imageData}">`:'';const doc=`<!doctype html><html><head><meta charset="utf-8"><title>ECG Capture Report</title></head><body style="font:11pt Arial;color:#162b3d"><h1>ECG Capture Report</h1><p>Created ${esc(new Date().toLocaleString())}</p><table border="1" cellspacing="0" cellpadding="7" style="border-collapse:collapse;width:100%">${rows}</table>${photo}<p><b>Important:</b> This app stores a photograph and user-entered details only. It does not acquire ECG signals, interpret ECGs, identify conditions, or replace qualified clinical review.</p></body></html>`;download('ecg-report.doc','application/msword;charset=utf-8',doc);toast('Word report downloaded.')});$('pdfBtn').addEventListener('click',()=>{updateReport();window.print()});document.querySelectorAll('.field input,.field textarea').forEach(el=>el.addEventListener('input',updateReport));
-/* Camera PPG pulse estimation. This does not acquire an electrical ECG. */
-const ppg={stream:null,active:false,raf:0,lastSample:0,samples:[],peaks:[],bpm:null,started:0,scanTimer:0};
-const ppgCanvas=$('ppgWave'),ppgCtx=ppgCanvas.getContext('2d');
-
-const ppgMobileOnly=/Android|iPhone|iPod|iPad|Mobile/i.test(navigator.userAgent)||navigator.maxTouchPoints>0;
-$('ppgCard').hidden=false;
-
-function ppgStatus(message){$('ppgStatus').textContent=message}
-function ppgCleanup(){ppg.active=false;cancelAnimationFrame(ppg.raf);clearInterval(ppg.scanTimer);if(ppg.stream){ppg.stream.getTracks().forEach(t=>t.stop());ppg.stream=null}$('ppgVideo').srcObject=null;$('ppgVideo').hidden=true;$('ppgGuide').hidden=false;$('ppgStart').disabled=false;$('ppgStop').disabled=true}
-function ppgDraw(){const w=ppgCanvas.width,h=ppgCanvas.height;ppgCtx.clearRect(0,0,w,h);ppgCtx.fillStyle='#102532';ppgCtx.fillRect(0,0,w,h);ppgCtx.strokeStyle='#294653';ppgCtx.lineWidth=1;for(let x=0;x<w;x+=40){ppgCtx.beginPath();ppgCtx.moveTo(x,0);ppgCtx.lineTo(x,h);ppgCtx.stroke()}for(let y=0;y<h;y+=30){ppgCtx.beginPath();ppgCtx.moveTo(0,y);ppgCtx.lineTo(w,y);ppgCtx.stroke()}if(ppg.samples.length<3)return;const recent=ppg.samples.slice(-100),vals=recent.map(s=>s.filtered),max=Math.max(...vals),min=Math.min(...vals),range=Math.max(2,max-min);ppgCtx.beginPath();ppgCtx.strokeStyle='#4de0b6';ppgCtx.lineWidth=2;recent.forEach((s,i)=>{const x=i/(Math.max(1,recent.length-1))*w,y=h/2-(s.filtered-(max+min)/2)/range*(h*.72);if(i===0)ppgCtx.moveTo(x,y);else ppgCtx.lineTo(x,y)});ppgCtx.stroke()}
-function ppgAnalyze(){const a=ppg.samples;if(a.length<25)return;const tail=a.slice(-100),values=tail.map(x=>x.filtered),mean=values.reduce((s,v)=>s+v,0)/values.length,variance=values.reduce((s,v)=>s+(v-mean)**2,0)/values.length,sd=Math.sqrt(variance);$('ppgQuality').textContent=sd>1.4?'Good':sd>.55?'Fair':'Weak';if(sd<.35)return;const now=tail[tail.length-1].t;let candidate=null;for(let i=Math.max(2,tail.length-5);i<tail.length-1;i++){if(tail[i].filtered>tail[i-1].filtered&&tail[i].filtered>=tail[i+1].filtered&&tail[i].filtered>mean+sd*.65)candidate=tail[i]}if(candidate){const last=ppg.peaks[ppg.peaks.length-1];if(!last||candidate.t-last>350){ppg.peaks.push(candidate.t);ppg.peaks=ppg.peaks.filter(t=>now-t<12000);if(ppg.peaks.length>=3){const intervals=[];for(let i=1;i<ppg.peaks.length;i++){const d=ppg.peaks[i]-ppg.peaks[i-1];if(d>=350&&d<=1500)intervals.push(d)}if(intervals.length){intervals.sort((x,y)=>x-y);const estimate=Math.round(60000/intervals[Math.floor(intervals.length/2)]);if(estimate>=40&&estimate<=180){ppg.bpm=estimate;$('ppgBpm').textContent=estimate;if($('quickPulseValue'))$('quickPulseValue').textContent=estimate;$('rate').value=estimate;$('lead').value='Camera PPG estimate (not ECG)';updateReport()}}}}}}
-async function ppgStart(){
- if(ppg.active)return;
- ppg.bpm=null;$('ppgBpm').textContent='--';if($('quickPulseValue'))$('quickPulseValue').textContent='--';
- $('rate').value='';$('lead').value='Camera PPG estimate';updateReport();
- if(!window.isSecureContext){ppgStatus('Camera requires a secure HTTPS page. Open the GitHub Pages https:// link, not a downloaded file or http link.');return}
- if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){ppgStatus('This browser does not provide camera access. Open the app in Chrome or Samsung Internet and allow Camera permission.');return}
- try{
-  ppgStatus('Requesting camera permission…');
-  let stream;
-  try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:640},height:{ideal:480}}})}
-  catch(firstError){stream=await navigator.mediaDevices.getUserMedia({audio:false,video:true})}
-  ppg.stream=stream;
-  const track=stream.getVideoTracks()[0];
-  if(track&&track.getCapabilities&&track.getCapabilities().torch){try{await track.applyConstraints({advanced:[{torch:true}]})}catch(torchError){}}
-  const video=$('ppgVideo');video.muted=true;video.setAttribute('playsinline','');video.playsInline=true;video.srcObject=stream;
-  try{await video.play()}catch(playError){throw new Error('Camera opened but video playback was blocked. Tap Start again or allow camera access for this site.')}
-  video.hidden=false;$('ppgGuide').hidden=true;ppg.active=true;ppg.samples=[];ppg.peaks=[];ppg.bpm=null;ppg.started=Date.now();ppg.lastSample=0;
-  $('ppgBpm').textContent='--';$('ppgQuality').textContent='Checking…';$('ppgCountdown').textContent='30 sec scan';$('ppgStart').disabled=true;$('ppgStop').disabled=false;
-  ppgStatus('Camera is active. Cover the rear camera lens and flash gently with your fingertip; keep still.');
-  const c=document.createElement('canvas');c.width=32;c.height=32;const cx=c.getContext('2d',{willReadFrequently:true});
-  function frame(t){if(!ppg.active)return;ppg.raf=requestAnimationFrame(frame);if(t-ppg.lastSample<90||video.readyState<2)return;ppg.lastSample=t;try{cx.drawImage(video,0,0,32,32);const d=cx.getImageData(0,0,32,32).data;let red=0,n=0;for(let y=7;y<25;y++)for(let x=7;x<25;x++){const i=(y*32+x)*4;red+=d[i];n++}const raw=red/n,recent=ppg.samples.slice(-15),baseline=recent.length?recent.reduce((s,v)=>s+v.raw,0)/recent.length:raw;ppg.samples.push({t:Date.now(),raw,filtered:raw-baseline});if(ppg.samples.length>180)ppg.samples.shift();ppgAnalyze();ppgDraw()}catch(frameError){ppgStatus('Camera signal could not be read. Check camera permission and try Chrome or Samsung Internet.');ppgCleanup();return}const left=Math.max(0,30-Math.floor((Date.now()-ppg.started)/1000));$('ppgCountdown').textContent=left+' sec remaining';if(Date.now()-ppg.started>=30000){ppgStatus(ppg.bpm?'Scan complete. Estimated pulse: '+ppg.bpm+' BPM.':'Scan complete, but no reliable pulse was detected. Try again with a steady fingertip.');if(ppg.bpm)saveVitalRecord('Pulse rate (PPG)',ppg.bpm,'Camera fingertip scan');ppgCleanup()}}
-  ppg.raf=requestAnimationFrame(frame);
-  ppg.scanTimer=setInterval(()=>{if(ppg.active&&Date.now()-ppg.started>=30000){ppgStatus(ppg.bpm?'Scan complete. Estimated pulse: '+ppg.bpm+' BPM.':'No reliable pulse detected. Please retry.');if(ppg.bpm)saveVitalRecord('Pulse rate (PPG)',ppg.bpm,'Camera fingertip scan');ppgCleanup()}},250);
- }catch(e){ppgCleanup();let message=e.message||'Unable to start camera.';if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError')message='Camera permission denied. In your browser site settings, allow Camera for raju-bose.github.io, then reload the page.';else if(e.name==='NotFoundError'||e.name==='DevicesNotFoundError')message='No camera was found on this device.';else if(e.name==='NotReadableError'||e.name==='TrackStartError')message='Camera is busy in another app. Close other camera apps and retry.';else if(e.name==='OverconstrainedError')message='The selected camera mode is not supported. Retry; the app will use the default camera mode.';ppgStatus(message)}
+:root{
+  --bg:#f3f6f9;--surface:#fff;--surface-2:#f7fafb;--ink:#13293b;--muted:#6b7f8f;--line:#e1e9ef;
+  --teal:#087f82;--teal-ink:#fff;--mint:#e6f4f1;--accent:#4de0b6;--scope:#0f2431;--grid:#24404d;
+  --danger:#b3313c;--warn:#a86a00;--good:#137a4b;
+  --shadow:0 6px 20px #12304a12;--radius:16px;
+  --tabbar:64px;--safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
 }
-$('ppgStart').addEventListener('click',ppgStart);$('quickPulseStart').addEventListener('click',()=>{document.getElementById('ppgCard').scrollIntoView({behavior:'smooth',block:'start'});ppgStart()});$('ppgStop').addEventListener('click',()=>{ppgStatus(ppg.bpm?'Scan stopped. Last estimated pulse: '+ppg.bpm+' BPM.':'Scan stopped before a reliable reading.');ppgCleanup()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&ppg.active){ppgStatus('Scan stopped because the page went into the background.');ppgCleanup()}});
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0b1820;--surface:#122431;--surface-2:#0f1f2a;--ink:#e6eef3;--muted:#91a6b4;--line:#21394a;
+  --teal:#20a7a5;--mint:#16373a;--shadow:0 6px 20px #0006;--danger:#ff7a83;--warn:#f0b04a;--good:#4fd39a;
+}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overscroll-behavior-y:contain}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
 
+/* ---------- App shell ---------- */
+.appbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:calc(var(--safe-t) + 10px) 16px 10px;border-bottom:1px solid var(--line)}
+.appbar-in{max-width:760px;margin:auto;display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--teal);display:grid;place-items:center;flex:none}
+.logo svg{width:22px;height:22px}
+.appbar h1{font-size:18px;margin:0;letter-spacing:-.4px;line-height:1.1}
+.appbar h1 small{display:block;font-size:10px;font-weight:650;letter-spacing:.7px;color:var(--muted);text-transform:uppercase}
+.appbar .spacer{flex:1}
+.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px}
+.pill{font-size:11px;font-weight:700;border-radius:99px;padding:7px 11px;background:var(--mint);color:var(--teal);border:0}
 
-/* BLE standard Heart Rate Service: BPM only, not an ECG trace. */
-const ble={hrDevice:null,hrServer:null,hrChar:null,hrBpm:null,bpDevice:null,bpServer:null,bpChar:null,ecgDevice:null,ecgServer:null,ecgChar:null,ecgSamples:[],ecgTimes:[],ecgLast:0};
-const mobileBle=/Android|iPhone|iPod|iPad|Mobile/i.test(navigator.userAgent);
+main{max-width:760px;margin:auto;padding:14px 16px calc(var(--tabbar) + var(--safe-b) + 24px)}
+.screen{display:none;animation:fade .18s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.screen-head{margin:4px 2px 14px}
+.eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);font-weight:750}
+.screen-head h2{font-size:24px;line-height:1.2;letter-spacing:-.6px;margin:4px 0}
+.screen-head p{font-size:13px;color:var(--muted);margin:0}
 
-function bleBpStatus(t){$('bleBpStatus').textContent=t}
-function decodeSfloat(v){let raw=v.getUint16(0,true),mant=raw&0x0fff,exp=(raw>>12)&0x0f;if(mant&0x0800)mant-=0x1000;if(exp&0x08)exp-=0x10;return mant*Math.pow(10,exp)}
-function bleBpMeasurement(event){try{const v=event.target.value;let p=0,flags=v.getUint8(p++),sys=decodeSfloat(new DataView(v.buffer,v.byteOffset+p,2));p+=2;let dia=decodeSfloat(new DataView(v.buffer,v.byteOffset+p,2));p+=2;let map=decodeSfloat(new DataView(v.buffer,v.byteOffset+p,2));p+=2;let pulse=null;if(flags&0x02)p+=7;if(flags&0x04){pulse=decodeSfloat(new DataView(v.buffer,v.byteOffset+p,2));p+=2}if(flags&0x08)p++;if(flags&0x10)p+=2;const unit=(flags&1)?'kPa':'mmHg',factor=(flags&1)?7.50062:1;sys*=factor;dia*=factor;map*=factor;if(!Number.isFinite(sys)||!Number.isFinite(dia)||sys<=dia||sys<40||sys>300||dia<20||dia>200)throw new Error('Monitor sent an invalid BP measurement.');$('bleBpSys').innerHTML=Math.round(sys)+' <span style="font-size:12px">mmHg</span>';$('bleBpDia').innerHTML=Math.round(dia)+' <span style="font-size:12px">mmHg</span>';$('bleBpMap').innerHTML=Math.round(map)+' <span style="font-size:12px">mmHg</span>';$('bleBpPulse').innerHTML=(pulse?Math.round(pulse):'--')+' <span style="font-size:12px">BPM</span>';$('bpSystolic').value=Math.round(sys);$('bpDiastolic').value=Math.round(dia);if(pulse){$('bpPulse').value=Math.round(pulse)}saveBpReading('Bluetooth BP cuff monitor');bleBpStatus('Received and saved a cuff measurement ('+Math.round(sys)+'/'+Math.round(dia)+' mmHg).');}catch(e){bleBpStatus('Could not decode BP reading: '+e.message)}}
-async function bleBpConnect(){if(!mobileBle){bleBpStatus('Use a supported mobile phone browser, preferably Chrome on Android.');return}if(!navigator.bluetooth){bleBpStatus('Web Bluetooth is unavailable. Try Chrome on Android over HTTPS.');return}try{bleBpStatus('Searching for compatible BP cuffs…');const d=await navigator.bluetooth.requestDevice({filters:[{services:['blood_pressure']}],optionalServices:['device_information']});ble.bpDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.bpServer=null;ble.bpChar=null;$('bleBpDisconnect').disabled=true;bleBpStatus('BP monitor disconnected.')});ble.bpServer=await d.gatt.connect();const svc=await ble.bpServer.getPrimaryService('blood_pressure');ble.bpChar=await svc.getCharacteristic('blood_pressure_measurement');await ble.bpChar.startNotifications();ble.bpChar.addEventListener('characteristicvaluechanged',bleBpMeasurement);$('bleBpDisconnect').disabled=false;bleBpStatus('Connected to '+(d.name||'BP monitor')+'. Start a measurement on the cuff.');}catch(e){bleBpStatus(e.name==='NotFoundError'?'No compatible BP cuff selected. Check that it supports the standard Bluetooth Blood Pressure Service.':'Connection failed: '+e.message)}}
-function bleBpDisconnect(){try{if(ble.bpChar)ble.bpChar.stopNotifications()}catch(e){}if(ble.bpDevice?.gatt?.connected)ble.bpDevice.gatt.disconnect();ble.bpServer=null;ble.bpChar=null;$('bleBpDisconnect').disabled=true;bleBpStatus('Disconnected.')}
-$('bleBpConnect').addEventListener('click',bleBpConnect);$('bleBpDisconnect').addEventListener('click',bleBpDisconnect);
-\nfunction bleHrStatus(t){$('bleHrStatus').textContent=t}
-function ecgBleStatus(t){$('ecgBleStatus').textContent=t}
-function bleDecodeHeartRate(event){const v=event.target.value,flags=v.getUint8(0),wide=!!(flags&1),bpm=wide?v.getUint16(1,true):v.getUint8(1);if(bpm>0&&bpm<300){ble.hrBpm=bpm;$('bleHrBpm').innerHTML=bpm+' <span style="font-size:12px;font-weight:500">BPM</span>';$('bleHrUse').disabled=false}}
-async function bleHrConnect(){if(!mobileBle){bleHrStatus('Mobile phone required.');return}if(!navigator.bluetooth){bleHrStatus('Bluetooth connection is not supported in this browser. Try Chrome on Android.');return}try{bleHrStatus('Choose your Bluetooth heart-rate sensor…');const d=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}],optionalServices:['device_information']});ble.hrDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.hrServer=null;ble.hrChar=null;$('bleHrDisconnect').disabled=true;bleHrStatus('Sensor disconnected.')});ble.hrServer=await d.gatt.connect();const service=await ble.hrServer.getPrimaryService('heart_rate');ble.hrChar=await service.getCharacteristic('heart_rate_measurement');await ble.hrChar.startNotifications();ble.hrChar.addEventListener('characteristicvaluechanged',bleDecodeHeartRate);$('bleHrDisconnect').disabled=false;bleHrStatus('Connected to '+d.name+'. Waiting for measurements…')}catch(e){bleHrStatus(e.name==='NotFoundError'?'No sensor selected.':'Connection failed: '+e.message)}}
-function bleHrDisconnect(){try{if(ble.hrChar)ble.hrChar.stopNotifications()}catch(e){}if(ble.hrDevice?.gatt?.connected)ble.hrDevice.gatt.disconnect();ble.hrServer=null;ble.hrChar=null;$('bleHrDisconnect').disabled=true;bleHrStatus('Disconnected.')}
-$('bleHrConnect').addEventListener('click',bleHrConnect);$('bleHrDisconnect').addEventListener('click',bleHrDisconnect);$('bleHrUse').addEventListener('click',()=>{if(ble.hrBpm){$('rate').value=ble.hrBpm;$('lead').value='Bluetooth heart-rate sensor';updateReport();saveVitalRecord('Heart rate (BLE)',ble.hrBpm,'Bluetooth heart-rate sensor');toast('Bluetooth BPM added to report and saved.')}});
-/* Generic BLE ECG stream adapter: signed int16 little-endian samples only. */
-const ecgCanvas=$('bleEcgWave'),ecgCtx=ecgCanvas.getContext('2d');
-function drawBleEcg(){const w=ecgCanvas.width,h=ecgCanvas.height;ecgCtx.fillStyle='#102532';ecgCtx.fillRect(0,0,w,h);ecgCtx.strokeStyle='#294653';ecgCtx.lineWidth=1;for(let x=0;x<w;x+=40){ecgCtx.beginPath();ecgCtx.moveTo(x,0);ecgCtx.lineTo(x,h);ecgCtx.stroke()}for(let y=0;y<h;y+=30){ecgCtx.beginPath();ecgCtx.moveTo(0,y);ecgCtx.lineTo(w,y);ecgCtx.stroke()}const a=ble.ecgSamples.slice(-360);if(a.length<2)return;let min=Math.min(...a),max=Math.max(...a),range=Math.max(100,max-min);ecgCtx.beginPath();ecgCtx.strokeStyle='#4de0b6';ecgCtx.lineWidth=2;a.forEach((v,i)=>{const x=i/(a.length-1)*w,y=h/2-(v-(max+min)/2)/range*(h*.78);if(i===0)ecgCtx.moveTo(x,y);else ecgCtx.lineTo(x,y)});ecgCtx.stroke()}
-function ecgNotification(event){const view=event.target.value,bytes=view.byteLength;if(bytes<2)return;const now=Date.now();for(let i=0;i+1<bytes;i+=2){ble.ecgSamples.push(view.getInt16(i,true));ble.ecgTimes.push(now)}if(ble.ecgSamples.length>20000){ble.ecgSamples.splice(0,ble.ecgSamples.length-20000);ble.ecgTimes.splice(0,ble.ecgTimes.length-20000)}$('ecgSampleCount').textContent=ble.ecgSamples.length+' samples';$('ecgCsvBtn').disabled=!ble.ecgSamples.length;drawBleEcg()}
-async function ecgBleConnect(){if(!mobileBle){ecgBleStatus('Mobile phone required.');return}if(!navigator.bluetooth){ecgBleStatus('Bluetooth is unavailable in this browser. Try Chrome on Android.');return}const su=$('ecgServiceUuid').value.trim(),cu=$('ecgCharUuid').value.trim();if(!su||!cu){ecgBleStatus('Enter the ECG service UUID and notification characteristic UUID from your device documentation.');return}try{ecgBleStatus('Choose your ECG device…');const d=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[su]});ble.ecgDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.ecgServer=null;ble.ecgChar=null;$('ecgBleDisconnect').disabled=true;ecgBleStatus('ECG device disconnected.')});ble.ecgServer=await d.gatt.connect();const service=await ble.ecgServer.getPrimaryService(su),ch=await service.getCharacteristic(cu);if(!ch.properties.notify&&!ch.properties.indicate)throw new Error('Selected characteristic does not support notifications.');ble.ecgChar=ch;ble.ecgSamples=[];ble.ecgTimes=[];await ch.startNotifications();ch.addEventListener('characteristicvaluechanged',ecgNotification);$('ecgBleDisconnect').disabled=false;ecgBleStatus('Receiving raw ECG samples from '+(d.name||'device')+'.')}catch(e){ecgBleStatus('Could not connect: '+e.message)}}
-function ecgBleDisconnect(){try{if(ble.ecgChar)ble.ecgChar.stopNotifications()}catch(e){}if(ble.ecgDevice?.gatt?.connected)ble.ecgDevice.gatt.disconnect();ble.ecgServer=null;ble.ecgChar=null;$('ecgBleDisconnect').disabled=true;ecgBleStatus('Disconnected.')}
-$('ecgBleConnect').addEventListener('click',ecgBleConnect);$('ecgBleDisconnect').addEventListener('click',ecgBleDisconnect);
-$('ecgCsvBtn').addEventListener('click',()=>{const hz=Math.max(1,Number($('ecgSampleRate').value)||250),rows=['sample_index,relative_time_seconds,raw_sample'];ble.ecgSamples.forEach((v,i)=>rows.push(i+','+(i/hz).toFixed(6)+','+v));download('external-ecg-samples.csv','text/csv;charset=utf-8',rows.join('\n'));toast('Raw ECG samples downloaded as CSV.')});
-function validBp(){const sr=$('bpSystolic').value.trim(),dr=$('bpDiastolic').value.trim(),pr=$('bpPulse').value.trim();if(!sr||!dr)return {ok:false,message:'Please enter both systolic and diastolic values from your BP cuff.'};const a=Number(sr),b=Number(dr),p=pr===''?null:Number(pr);if(!Number.isInteger(a)||a<50||a>260)return {ok:false,message:'Systolic must be a whole number between 50 and 260 mmHg.'};if(!Number.isInteger(b)||b<30||b>160)return {ok:false,message:'Diastolic must be a whole number between 30 and 160 mmHg.'};if(a<=b)return {ok:false,message:'Systolic must be higher than diastolic.'};if(pr!==''&&(!Number.isInteger(p)||p<30||p>220))return {ok:false,message:'Optional pulse must be a whole number between 30 and 220 BPM.'};return {ok:true,systolic:a,diastolic:b,pulse:p}}function saveBpReading(source='Manually entered from BP cuff'){const check=validBp();if(!check.ok){$('bpStatus').textContent=check.message;toast(check.message);return}const item={date:new Date().toISOString(),kind:'Blood pressure',systolic:check.systolic,diastolic:check.diastolic,pulse:check.pulse,source};const a=readVitals();a.push(item);if(writeVitals(a)){$('bpStatus').textContent='Saved successfully: '+item.systolic+'/'+item.diastolic+' mmHg'+(item.pulse?' · pulse '+item.pulse+' BPM':'')+'. View it in Reading History.';updateReport();toast('BP reading saved to this phone.')}else{$('bpStatus').textContent='Could not save. Enable site storage for this browser and retry.'}}$('saveBp').addEventListener('click',saveBpReading);['bpSystolic','bpDiastolic','bpPulse'].forEach(id=>$(id).addEventListener('input',updateReport));const VITALS_KEY='mobileEcgVitalsHistoryV1';function readVitals(){try{const a=JSON.parse(localStorage.getItem(VITALS_KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}function writeVitals(a){try{localStorage.setItem(VITALS_KEY,JSON.stringify(a.slice(-500)));renderVitalsHistory();return true}catch(e){toast('Could not save: browser storage is full or disabled.');return false}}function saveVitalRecord(kind,bpm,source){if(!Number.isFinite(Number(bpm))||Number(bpm)<=0)return false;const a=readVitals();a.push({date:new Date().toISOString(),kind,bpm:Number(bpm),source});return writeVitals(a)}function renderVitalsHistory(){const a=readVitals().reverse(),b=$('vitalsHistoryList');$('vitalsCount').textContent=a.length+' saved';$('exportVitals').disabled=!a.length;$('clearVitals').disabled=!a.length;if(!a.length){b.innerHTML='<div class="vitals-empty">No readings saved yet.</div>';return}b.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>Date / time</th><th>Reading</th><th>BPM</th><th>Source</th></tr></thead><tbody>'+a.slice(0,30).map(x=>'<tr><td>'+esc(new Date(x.date).toLocaleString())+'</td><td>'+esc(x.kind)+'</td><td><b>'+(x.kind==='Blood pressure'?esc(x.systolic+'/'+x.diastolic+' mmHg')+(x.pulse?' · pulse '+esc(x.pulse):''):esc(x.bpm)+' BPM')+'</b></td><td>'+esc(x.source)+'</td></tr>').join('')+'</tbody></table></div>'} $('saveVitalsNow').addEventListener('click',()=>{let n=0;if(ppg.bpm)n+=saveVitalRecord('Pulse rate (PPG)',ppg.bpm,'Camera fingertip scan')?1:0;if(ble.hrBpm)n+=saveVitalRecord('Heart rate (BLE)',ble.hrBpm,'Bluetooth heart-rate sensor')?1:0;if(validBp()){const a=readVitals();a.push({date:new Date().toISOString(),kind:'Blood pressure',systolic:Number($('bpSystolic').value),diastolic:Number($('bpDiastolic').value),pulse:$('bpPulse').value?Number($('bpPulse').value):null,source:'Manually entered from BP cuff'});if(writeVitals(a))n++}toast(n?n+' reading(s) saved on this phone.':'No current reading available.')});$('clearVitals').addEventListener('click',()=>{if(confirm('Delete all saved readings from this phone?')){localStorage.removeItem(VITALS_KEY);renderVitalsHistory()}});$('exportVitals').addEventListener('click',()=>{const a=readVitals(),r=['date_time,reading_type,reading,source',...a.map(x=>[x.date,x.kind,x.kind==='Blood pressure'?x.systolic+'/'+x.diastolic+' mmHg':x.bpm,x.source].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','))];download('pulse-heart-rate-history.csv','text/csv;charset=utf-8',r.join('\n'))});renderVitalsHistory();
-window.addEventListener('beforeunload',()=>{bleHrDisconnect();bleBpDisconnect();ecgBleDisconnect()});
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+.tabbar-in{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);height:var(--tabbar)}
+.tab{border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:10.5px;font-weight:650;position:relative}
+.tab svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{color:var(--teal)}
+.tab[aria-current="page"]::before{content:"";position:absolute;top:0;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--teal)}
 
-window.addEventListener('beforeunload',()=>{ppgCleanup();stopCamera()});updateReport();
-</script></body></html>
+/* ---------- Components ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.card-title{font-size:15px;font-weight:750}
+.card-help{font-size:12px;color:var(--muted);margin-top:2px}
+.badge{font-size:10px;font-weight:750;letter-spacing:.4px;border-radius:99px;padding:6px 9px;background:var(--mint);color:var(--teal);white-space:nowrap}
+.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.row>.btn{flex:1}
+.btn{min-height:46px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:680;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn-primary{background:var(--teal);color:var(--teal-ink);border-color:var(--teal)}
+.btn-danger{color:var(--danger)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:not(:disabled):active{transform:scale(.98)}
+.status{font-size:12.5px;color:var(--muted);margin-top:10px;min-height:18px}
+.note{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:12px;padding:11px 12px;border-radius:11px;background:var(--surface-2);border:1px solid var(--line)}
+.note b{color:var(--ink)}
+.metric{font-size:30px;font-weight:780;letter-spacing:-1px;line-height:1.1}
+.metric small{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:3px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat label,.stat .lbl{display:block;color:var(--muted);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.field label{display:block;color:var(--muted);font-size:11.5px;font-weight:700;margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);font-size:16px;outline-color:var(--teal)}
+.field textarea{min-height:84px;resize:vertical}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.full{grid-column:1/-1}
+canvas.scope{display:block;width:100%;background:var(--scope);border-radius:12px;margin-top:12px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Home */
+.hero{background:linear-gradient(140deg,var(--teal),#0b5d70);color:#fff;border:0;position:relative;overflow:hidden}
+.hero .eyebrow{color:#bff3e4}
+.hero h2{font-size:22px;margin:6px 0 4px;letter-spacing:-.5px}
+.hero p{margin:0;font-size:13px;color:#d9f2ee}
+.hero svg.bg{position:absolute;right:-10px;bottom:-6px;width:210px;opacity:.22}
+.hero .btn{background:#fff;color:#0b5d70;border-color:#fff;margin-top:14px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tile{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:15px;padding:13px;min-height:132px;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow)}
+.tile:active{transform:scale(.985)}
+.tile .ic{width:32px;height:32px;border-radius:10px;background:var(--mint);color:var(--teal);display:grid;place-items:center;margin-bottom:6px}
+.tile .ic svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tile .lbl{font-size:11.5px;color:var(--muted);font-weight:650}
+.tile strong{font-size:24px;line-height:1.15;letter-spacing:-.5px}
+.tile small{font-size:10.5px;color:var(--muted)}
+.tile .go{margin-top:auto;padding-top:6px;font-size:11.5px;font-weight:750;color:var(--teal)}
+.install-card{display:flex;align-items:center;gap:12px}
+.install-card .txt{flex:1;font-size:12.5px;color:var(--muted)}
+.install-card .txt b{display:block;color:var(--ink);font-size:14px}
+
+/* Pulse scan */
+.scan-stage{display:grid;place-items:center;padding:6px 0 2px}
+.ring{position:relative;width:200px;height:200px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{stroke:var(--line);fill:none;stroke-width:10}
+.ring .prog{stroke:var(--teal);fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.ring-center{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring-center .big{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1}
+.ring-center .unit{font-size:12px;color:var(--muted);font-weight:700}
+.ring-center .heart{color:#e0485a;font-size:20px;display:inline-block}
+.beat{animation:beat .35s ease}
+@keyframes beat{40%{transform:scale(1.45)}}
+.ppg-cam{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.quality{display:flex;gap:6px;justify-content:center;margin-top:8px;font-size:12px;color:var(--muted);align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dot.on{background:var(--good)}
+.steps{margin:0;padding-left:18px;font-size:12.5px;color:var(--muted);line-height:1.7}
+
+/* ECG image */
+.camera-box{position:relative;min-height:220px;border-radius:12px;background:var(--scope);overflow:hidden;display:grid;place-items:center}
+.camera-box video,.camera-box img{display:block;width:100%;max-height:380px;object-fit:contain}
+.placeholder{padding:28px 20px;text-align:center;color:#c9d8e0}
+.placeholder b{display:block;color:#fff;font-size:14px;margin-bottom:3px}
+.placeholder span{font-size:12px}
+.segmented{display:grid;grid-template-columns:1fr 1fr;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:14px}
+.segmented button{border:0;background:none;border-radius:9px;min-height:38px;font-size:13px;font-weight:700;color:var(--muted)}
+.segmented button[aria-selected="true"]{background:var(--surface);color:var(--teal);box-shadow:var(--shadow)}
+details.adv summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--teal);padding:4px 0}
+
+/* History */
+.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;scrollbar-width:none}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 13px;font-size:12.5px;font-weight:700;white-space:nowrap;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.rec{display:flex;align-items:center;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line)}
+.rec:last-child{border-bottom:0}
+.rec .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--mint);color:var(--teal);font-size:17px;flex:none}
+.rec .ic.bp{background:#fde9ec;color:#c13a4b}
+@media (prefers-color-scheme:dark){.rec .ic.bp{background:#3a1d24;color:#ff8f9b}}
+.rec .mid{flex:1;min-width:0}
+.rec .val{font-weight:780;font-size:16px}
+.rec .sub{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec .del{border:0;background:none;color:var(--muted);font-size:18px;width:36px;height:36px;border-radius:10px}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:26px 10px}
+#trend{width:100%;height:150px;display:block}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.summary .stat{padding:9px 10px}
+.summary .metric{font-size:20px}
+
+/* Report */
+.report-table{width:100%;border-collapse:collapse;font-size:13px}
+.report-table th,.report-table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.report-table th{width:38%;color:var(--muted);font-weight:650}
+.downloads{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+
+/* Sheet + toast */
+.toast{position:fixed;left:50%;bottom:calc(var(--tabbar) + var(--safe-b) + 14px);transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#16344a;color:#fff;border-radius:12px;padding:11px 15px;font-size:13px;transition:.2s;max-width:90vw;text-align:center;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{border:0;border-radius:18px;padding:0;max-width:440px;width:calc(100% - 32px);background:var(--surface);color:var(--ink);box-shadow:0 20px 60px #0005}
+dialog::backdrop{background:#0b1a2488}
+.dlg{padding:20px}
+.dlg h3{margin:0 0 6px;font-size:18px}
+.dlg p{margin:0 0 14px;color:var(--muted);font-size:13px}
+
+@media(max-width:400px){.downloads{grid-template-columns:1fr}.field-grid{grid-template-columns:1fr}.ring{width:180px;height:180px}}
+
+/* ---------- Print (PDF report) ---------- */
+.print-only{display:none}
+@media print{
+  body{background:#fff;color:#111;font:11pt/1.45 Arial,sans-serif}
+  .appbar,.tabbar,.toast,.screen:not(#report),.no-print{display:none!important}
+  main{max-width:none;padding:0}
+  #report{display:block!important}
+  .card{box-shadow:none;border:0;padding:0}
+  .print-only{display:block!important}
+  .report-table th,.report-table td{border:1px solid #bbb;padding:7px}
+  .report-table th{background:#f2f5f6;color:#333}
+  #printPhoto{max-width:100%;max-height:330px;object-fit:contain;margin:12px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="appbar-in">
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-5 4 10 2.5-7 1.5 2H22"/></svg></div>
+    <h1><span id="barTitle">PulseCare</span><small id="barSub">ECG &amp; health monitor</small></h1>
+    <span class="spacer"></span>
+    <button class="pill" id="installBtn" type="button" hidden>Install app</button>
+    <button class="icon-btn" id="settingsBtn" type="button" aria-label="Profile and settings">⚙</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<section class="screen" id="home" data-title="PulseCare" data-sub="ECG &amp; health monitor">
+  <div class="screen-head">
+    <div class="eyebrow" id="greetDate">Today</div>
+    <h2 id="greeting">Hello</h2>
+    <p>Take a reading, connect a device, or build an ECG report.</p>
+  </div>
+
+  <div class="card hero">
+    <svg class="bg" viewBox="0 0 200 60" fill="none" stroke="#fff" stroke-width="3"><path d="M0 34h46l8-18 12 36 10-26 6 8h40l8-22 12 40 10-28 6 10h42"/></svg>
+    <div class="eyebrow">Quick check</div>
+    <h2>30-second pulse scan</h2>
+    <p>Cover the rear camera and flash with a fingertip.</p>
+    <button class="btn" type="button" data-go="pulse" data-autostart>Start scan →</button>
+  </div>
+
+  <div class="tiles">
+    <button class="tile" type="button" data-go="pulse"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="lbl">Pulse rate</span><strong id="tilePulse">--</strong><small id="tilePulseWhen">No reading yet</small><span class="go">Measure →</span></button>
+    <button class="tile" type="button" data-go="bp"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-3"/></svg></span><span class="lbl">Blood pressure</span><strong id="tileBp">--/--</strong><small id="tileBpWhen">No reading yet</small><span class="go">Add reading →</span></button>
+    <button class="tile" type="button" data-go="ecg"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2 12h4l2-5 4 10 2.5-7 1.5 2H22"/></svg></span><span class="lbl">ECG</span><strong id="tileEcg" style="font-size:17px;margin:4px 0">Capture / stream</strong><small>Photo of strip or BLE device</small><span class="go">Open →</span></button>
+    <button class="tile" type="button" data-go="report"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="lbl">Report</span><strong style="font-size:17px;margin:4px 0">PDF · Excel · Word</strong><small>Share with your doctor</small><span class="go">Create →</span></button>
+  </div>
+
+  <div class="card install-card" id="installCard" hidden>
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-5 4 10 2.5-7 1.5 2H22"/></svg></div>
+    <div class="txt"><b>Install PulseCare</b><span id="installHint">Add it to your home screen – it opens full-screen and works offline.</span></div>
+    <button class="btn btn-primary" id="installBtn2" type="button">Install</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Recent readings</div><div class="card-help">Saved privately on this phone</div></div><button class="pill" type="button" data-go="history">See all</button></div>
+    <div id="recentList"></div>
+  </div>
+
+  <div class="note"><b>Not a medical device.</b> PulseCare records estimates and readings from compatible devices. It does not diagnose, interpret ECGs, or replace a clinician. In an emergency call your local emergency number.</div>
+</section>
+
+<!-- ================= PULSE ================= -->
+<section class="screen" id="pulse" data-title="Pulse" data-sub="Camera scan &amp; heart-rate sensor">
+  <div class="card">
+    <div class="scan-stage">
+      <div class="ring">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="prog" id="ringProg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+        <div class="ring-center"><div><span class="heart" id="heart">♥</span><div class="big" id="ppgBpm">--</div><div class="unit">BPM</div></div></div>
+      </div>
+      <div class="quality" aria-live="polite"><span>Signal</span><span class="dot" id="q1"></span><span class="dot" id="q2"></span><span class="dot" id="q3"></span><span id="ppgQuality">Not started</span></div>
+    </div>
+    <canvas class="scope" id="ppgWave" width="720" height="150" aria-label="Live pulse waveform"></canvas>
+    <video class="ppg-cam" id="ppgVideo" autoplay playsinline muted></video>
+    <div class="status" id="ppgStatus" role="status" aria-live="polite">Tap Start, allow the camera, then cover the rear camera and flash with your fingertip.</div>
+    <div class="row"><button class="btn btn-primary" id="ppgStart" type="button">Start 30-second scan</button><button class="btn" id="ppgStop" type="button" disabled>Stop</button></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">How to get a good reading</div>
+    <ol class="steps"><li>Sit down and rest for a minute.</li><li>Rest your hand on a table. Cover the <b>rear camera and flash</b> with your fingertip.</li><li>Press lightly – too hard blocks blood flow.</li><li>Keep still and quiet for the full 30 seconds.</li></ol>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Bluetooth heart-rate sensor</div><div class="card-help">Chest straps & watches using the standard Heart Rate Service</div></div><span class="badge">BLE</span></div>
+    <div class="metric" id="bleHrBpm">--<small>BPM</small></div>
+    <div class="row"><button class="btn btn-primary" id="bleHrConnect" type="button">Connect sensor</button><button class="btn" id="bleHrDisconnect" type="button" disabled>Disconnect</button></div>
+    <button class="btn" id="bleHrUse" type="button" disabled style="width:100%;margin-top:9px">Save this BPM</button>
+    <div class="status ble-status" id="bleHrStatus" role="status" aria-live="polite">Not connected.</div>
+  </div>
+
+  <div class="note"><b>Important:</b> the camera scan is an experimental photoplethysmography (PPG) estimate, not an electrical ECG. Movement, light, skin contact and camera hardware affect it. Do not use it for treatment decisions.</div>
+</section>
+
+<!-- ================= ECG ================= -->
+<section class="screen" id="ecg" data-title="ECG" data-sub="Strip capture &amp; device stream">
+  <div class="segmented" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-seg="segPhoto">Photo of ECG strip</button>
+    <button type="button" role="tab" aria-selected="false" data-seg="segBle">Bluetooth ECG device</button>
+  </div>
+
+  <div id="segPhoto">
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">ECG strip image</div><div class="card-help" id="cameraStatus">Photograph a printed ECG or pick an existing photo.</div></div></div>
+      <div class="camera-box"><video id="video" autoplay playsinline muted hidden></video><img id="preview" alt="Captured ECG image" hidden><div class="placeholder" id="placeholder"><b>No image yet</b><span>Lay the strip flat in good light, then capture.</span></div></div>
+      <div class="row"><button class="btn btn-primary" id="cameraBtn" type="button">Open camera</button><button class="btn btn-primary" id="captureBtn" type="button" hidden>Capture</button><button class="btn" id="retakeBtn" type="button" hidden>Remove</button><button class="btn" id="uploadBtn" type="button">Choose photo</button><input class="sr-only" id="fileInput" type="file" accept="image/*"></div>
+      <div class="status" id="cameraError" role="alert" hidden style="color:var(--danger)"></div>
+    </div>
+    <button class="btn btn-primary" type="button" data-go="report" style="width:100%">Continue to report →</button>
+  </div>
+
+  <div id="segBle" hidden>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Live ECG waveform</div><div class="card-help">From a BLE device that streams raw samples</div></div><span class="badge" id="ecgSampleCount">0 samples</span></div>
+      <canvas class="scope" id="bleEcgWave" width="720" height="200" aria-label="Incoming ECG waveform"></canvas>
+      <div class="stat-grid" style="margin-top:10px"><div class="stat"><span class="lbl">Duration</span><div class="metric" id="ecgDuration" style="font-size:22px">0.0<small>s</small></div></div><div class="stat"><span class="lbl">Sample rate</span><div class="metric" id="ecgRateShow" style="font-size:22px">250<small>Hz</small></div></div></div>
+      <details class="adv" style="margin-top:12px" open>
+        <summary>Device settings</summary>
+        <div class="field-grid" style="margin-top:10px">
+          <div class="field full"><label for="ecgServiceUuid">Service UUID</label><input id="ecgServiceUuid" placeholder="From device manual" autocomplete="off" spellcheck="false"></div>
+          <div class="field full"><label for="ecgCharUuid">Notify characteristic UUID</label><input id="ecgCharUuid" placeholder="From device manual" autocomplete="off" spellcheck="false"></div>
+          <div class="field"><label for="ecgSampleRate">Sample rate (Hz)</label><input id="ecgSampleRate" type="number" min="1" max="5000" value="250" inputmode="numeric"></div>
+        </div>
+      </details>
+      <div class="row"><button class="btn btn-primary" id="ecgBleConnect" type="button">Connect ECG device</button><button class="btn" id="ecgBleDisconnect" type="button" disabled>Disconnect</button></div>
+      <button class="btn" id="ecgCsvBtn" type="button" disabled style="width:100%;margin-top:9px">Download samples (CSV)</button>
+      <div class="status" id="ecgBleStatus" role="status" aria-live="polite">Not connected. Enter the UUIDs supplied by your device maker.</div>
+    </div>
+    <div class="note"><b>Compatibility:</b> expects signed 16-bit little-endian samples in BLE notifications. Signals are shown as received – not filtered, interpreted or verified. A heart-rate strap gives BPM only, not an ECG waveform.</div>
+  </div>
+</section>
+
+<!-- ================= BP ================= -->
+<section class="screen" id="bp" data-title="Blood pressure" data-sub="Cuff monitor or manual entry">
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Enter a reading</div><div class="card-help">From a validated upper-arm cuff monitor</div></div><span class="badge" id="bpCategory" hidden></span></div>
+    <div class="field-grid">
+      <div class="field"><label for="bpSystolic">Systolic (top)</label><input id="bpSystolic" type="number" inputmode="numeric" min="50" max="260" placeholder="120"></div>
+      <div class="field"><label for="bpDiastolic">Diastolic (bottom)</label><input id="bpDiastolic" type="number" inputmode="numeric" min="30" max="160" placeholder="80"></div>
+      <div class="field full"><label for="bpPulse">Pulse (BPM, optional)</label><input id="bpPulse" type="number" inputmode="numeric" min="30" max="220" placeholder="72"></div>
+    </div>
+    <button class="btn btn-primary" id="saveBp" type="button" style="width:100%;margin-top:12px">Save reading</button>
+    <div class="status" id="bpStatus" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Bluetooth BP cuff</div><div class="card-help">Cuffs using the standard Blood Pressure Service (0x1810)</div></div><span class="badge">BLE</span></div>
+    <div class="stat-grid">
+      <div class="stat"><span class="lbl">Systolic</span><div class="metric" id="bleBpSys">--<small>mmHg</small></div></div>
+      <div class="stat"><span class="lbl">Diastolic</span><div class="metric" id="bleBpDia">--<small>mmHg</small></div></div>
+      <div class="stat"><span class="lbl">Mean arterial</span><div class="metric" id="bleBpMap">--<small>mmHg</small></div></div>
+      <div class="stat"><span class="lbl">Pulse</span><div class="metric" id="bleBpPulse">--<small>BPM</small></div></div>
+    </div>
+    <div class="row"><button class="btn btn-primary" id="bleBpConnect" type="button">Connect cuff</button><button class="btn" id="bleBpDisconnect" type="button" disabled>Disconnect</button></div>
+    <div class="status" id="bleBpStatus" role="status" aria-live="polite">Not connected. Readings are saved automatically when received.</div>
+  </div>
+  <div class="note">A phone camera cannot measure blood pressure. Many cuffs use proprietary Bluetooth and won't connect – enter their values manually above.</div>
+</section>
+
+<!-- ================= HISTORY ================= -->
+<section class="screen" id="history" data-title="History" data-sub="Your saved readings">
+  <div class="filters" role="group" aria-label="Filter readings">
+    <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+    <button class="chip" type="button" data-filter="pulse" aria-pressed="false">Pulse / HR</button>
+    <button class="chip" type="button" data-filter="bp" aria-pressed="false">Blood pressure</button>
+  </div>
+  <div class="card">
+    <div class="card-head"><div><div class="card-title" id="trendTitle">Trend</div><div class="card-help">Last 30 readings</div></div><span class="badge" id="vitalsCount">0 saved</span></div>
+    <canvas id="trend" width="720" height="300" aria-label="Trend chart"></canvas>
+    <div class="summary" id="summary"></div>
+  </div>
+  <div class="card">
+    <div id="historyList"></div>
+  </div>
+  <div class="row no-print"><button class="btn" id="exportVitals" type="button">Export CSV</button><button class="btn btn-danger" id="clearVitals" type="button">Clear all</button></div>
+</section>
+
+<!-- ================= REPORT ================= -->
+<section class="screen" id="report" data-title="Report" data-sub="Export &amp; share">
+  <div class="print-only"><h1 style="margin:0">ECG &amp; Vitals Report</h1><p style="margin:4px 0 10px;color:#555">Generated by PulseCare · <span id="printDate"></span> · not clinically interpreted</p></div>
+  <div class="card no-print">
+    <div class="card-head"><div><div class="card-title">Report details</div><div class="card-help">Pre-filled from your latest readings – edit as needed</div></div></div>
+    <div class="field-grid">
+      <div class="field"><label for="patient">Patient / reference</label><input id="patient" autocomplete="name" placeholder="Name or record ID"></div>
+      <div class="field"><label for="recorded">Date and time</label><input id="recorded" type="datetime-local"></div>
+      <div class="field"><label for="rate">Heart rate (BPM)</label><input id="rate" type="number" inputmode="numeric" min="1" max="400"></div>
+      <div class="field"><label for="lead">Lead / source</label><input id="lead" placeholder="e.g. Lead II"></div>
+      <div class="field full"><label for="notes">Notes / symptoms</label><textarea id="notes" placeholder="e.g. palpitations after climbing stairs"></textarea></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head no-print"><div><div class="card-title">Preview</div></div><span class="badge" id="imgBadge">No ECG image</span></div>
+    <table class="report-table"><tbody id="reportRows"></tbody></table>
+    <img id="printPhoto" alt="ECG source image" hidden>
+    <div class="print-only" style="margin-top:14px;font-size:9pt;color:#555;border-top:1px solid #bbb;padding-top:8px"><b>Important:</b> This report contains a photograph and user-entered or device-reported values. PulseCare does not interpret ECGs, identify conditions, or replace review by a qualified clinician.</div>
+    <div class="downloads no-print"><button class="btn btn-primary" id="pdfBtn" type="button">Save PDF</button><button class="btn" id="excelBtn" type="button">Excel</button><button class="btn" id="wordBtn" type="button">Word</button></div>
+    <button class="btn no-print" id="shareBtn" type="button" style="width:100%;margin-top:8px" hidden>Share summary…</button>
+  </div>
+</section>
+
+</main>
+
+<nav class="tabbar" aria-label="Main">
+  <div class="tabbar-in">
+    <button class="tab" type="button" data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button class="tab" type="button" data-go="pulse"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>Pulse</button>
+    <button class="tab" type="button" data-go="ecg"><svg viewBox="0 0 24 24"><path d="M2 12h4l2-5 4 10 2.5-7 1.5 2H22"/></svg>ECG</button>
+    <button class="tab" type="button" data-go="bp"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-3"/></svg>BP</button>
+    <button class="tab" type="button" data-go="history"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>History</button>
+  </div>
+</nav>
+
+<dialog id="settingsDlg">
+  <form method="dialog" class="dlg">
+    <h3>Profile &amp; settings</h3>
+    <p>Stored only on this device.</p>
+    <div class="field" style="margin-bottom:11px"><label for="profileName">Your name</label><input id="profileName" autocomplete="name" placeholder="Used in greetings and reports"></div>
+    <div class="field" style="margin-bottom:14px"><label for="profileId">Patient / record ID (optional)</label><input id="profileId" autocomplete="off"></div>
+    <div class="note" style="margin:0 0 14px">Version <span id="appVersion"></span> · <span id="offlineState">Checking offline support…</span></div>
+    <div class="row" style="margin:0"><button class="btn" value="cancel" type="submit">Close</button><button class="btn btn-primary" id="saveProfile" value="save" type="submit">Save</button></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+const APP_VERSION='2.0.0';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastTimer=0;
+function toast(s){const t=$('toast');t.textContent=s;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return v===undefined?null:false}}
+function download(name,mime,content){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function rel(iso){const d=(Date.now()-new Date(iso))/1000;if(d<60)return 'just now';if(d<3600)return Math.floor(d/60)+' min ago';if(d<86400)return Math.floor(d/3600)+' h ago';if(d<172800)return 'yesterday';return new Date(iso).toLocaleDateString()}
+const hasBluetooth=!!navigator.bluetooth;
+
+/* ---------------- Router ---------------- */
+const SCREENS=['home','pulse','ecg','bp','history','report'];
+function go(name,opts={}){
+  if(!SCREENS.includes(name))name='home';
+  if(location.hash!=='#'+name)history.pushState(null,'','#'+name);
+  show(name);
+  if(opts.autostart)setTimeout(ppgStart,150);
+}
+function show(name){
+  if(!SCREENS.includes(name))name='home';
+  if(name!=='pulse'&&ppg.active){ppgStatus('Scan stopped when you left the screen.');ppgCleanup()}
+  if(name!=='ecg')stopCamera();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===name));
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-current',t.dataset.go===name||(name==='report'&&t.dataset.go==='ecg')?'page':'false'));
+  const sc=$(name);$('barTitle').textContent=sc.dataset.title;$('barSub').innerHTML=sc.dataset.sub;
+  window.scrollTo({top:0});
+  if(name==='home')renderHome();
+  if(name==='history')renderHistory();
+  if(name==='report')prefillReport();
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){e.preventDefault();go(b.dataset.go,{autostart:b.hasAttribute('data-autostart')})}});
+window.addEventListener('popstate',()=>show(location.hash.slice(1)));
+
+/* ---------------- Storage: vitals ---------------- */
+const VITALS_KEY='mobileEcgVitalsHistoryV1'; // same key as v1 so earlier readings carry over
+function readVitals(){const a=store(VITALS_KEY);if(!Array.isArray(a))return [];let changed=false;a.forEach((x,i)=>{if(!x.id){x.id=Date.parse(x.date)+'-'+i;changed=true}});if(changed)store(VITALS_KEY,a);return a.filter(x=>x&&x.date)}
+function writeVitals(a){if(!store(VITALS_KEY,a.slice(-1000))){toast('Could not save: storage is full or disabled.');return false}renderHome();if($('history').classList.contains('active'))renderHistory();return true}
+function addVital(rec){rec.id=Date.now()+'-'+Math.random().toString(36).slice(2,7);rec.date=new Date().toISOString();const a=readVitals();a.push(rec);return writeVitals(a)}
+function savePulse(kind,bpm,source){bpm=Number(bpm);if(!Number.isFinite(bpm)||bpm<=0)return false;return addVital({kind,bpm,source})}
+const isBp=x=>x.kind==='Blood pressure';
+function fmtVal(x){return isBp(x)?x.systolic+'/'+x.diastolic+' mmHg':x.bpm+' BPM'}
+function bpCategory(s,d){if(s>=180||d>=120)return['Very high – seek care','var(--danger)'];if(s>=140||d>=90)return['High','var(--danger)'];if(s>=130||d>=80)return['Raised','var(--warn)'];if(s>=120)return['Elevated','var(--warn)'];if(s<90||d<60)return['Low','var(--warn)'];return['In normal range','var(--good)']}
+
+/* ---------------- Home ---------------- */
+function renderHome(){
+  const p=store('pc.profile')||{};const h=new Date().getHours();
+  $('greeting').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+(p.name?', '+p.name.split(' ')[0]:'');
+  $('greetDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});
+  const a=readVitals();const lp=[...a].reverse().find(x=>!isBp(x)),lb=[...a].reverse().find(isBp);
+  $('tilePulse').textContent=lp?lp.bpm:'--';$('tilePulseWhen').textContent=lp?'BPM · '+rel(lp.date):'No reading yet';
+  $('tileBp').textContent=lb?lb.systolic+'/'+lb.diastolic:'--/--';$('tileBpWhen').textContent=lb?'mmHg · '+rel(lb.date):'No reading yet';
+  const r=a.slice(-4).reverse();$('recentList').innerHTML=r.length?r.map(recHtml).join(''):'<div class="empty">No readings yet. Start with a pulse scan.</div>';
+}
+function recHtml(x,del){return `<div class="rec"><div class="ic ${isBp(x)?'bp':''}">${isBp(x)?'◉':'♥'}</div><div class="mid"><div class="val">${esc(fmtVal(x))}${isBp(x)&&x.pulse?` <span style="font-weight:500;font-size:12px;color:var(--muted)">· ${esc(x.pulse)} BPM</span>`:''}</div><div class="sub">${esc(new Date(x.date).toLocaleString([], {dateStyle:'medium',timeStyle:'short'}))} · ${esc(x.source||x.kind)}</div></div>${del?`<button class="del" type="button" data-del="${esc(x.id)}" aria-label="Delete reading">✕</button>`:''}</div>`}
+
+/* ---------------- History ---------------- */
+let histFilter='all';
+document.querySelectorAll('[data-filter]').forEach(c=>c.addEventListener('click',()=>{histFilter=c.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===c));renderHistory()}));
+function renderHistory(){
+  const all=readVitals();const a=all.filter(x=>histFilter==='all'||(histFilter==='bp'?isBp(x):!isBp(x)));
+  $('vitalsCount').textContent=a.length+' saved';$('exportVitals').disabled=$('clearVitals').disabled=!all.length;
+  $('historyList').innerHTML=a.length?[...a].reverse().slice(0,200).map(x=>recHtml(x,true)).join(''):'<div class="empty">No readings saved yet.</div>';
+  drawTrend(a);
+}
+$('historyList').addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b)return;const a=readVitals().filter(x=>x.id!==b.dataset.del);writeVitals(a);renderHistory();toast('Reading deleted.')});
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function drawTrend(a){
+  const c=$('trend'),ctx=c.getContext('2d'),W=c.width,H=c.height,pad={l:44,r:12,t:16,b:26};
+  ctx.clearRect(0,0,W,H);ctx.font='20px system-ui';
+  const showBp=histFilter==='bp'||(histFilter==='all'&&a.length&&a.every(isBp));
+  const pts=a.filter(x=>showBp?isBp(x):!isBp(x)).slice(-30);
+  $('trendTitle').textContent=showBp?'Blood pressure trend':'Pulse / heart-rate trend';
+  const sum=$('summary');
+  if(pts.length<1){ctx.fillStyle=cssVar('--muted');ctx.textAlign='center';ctx.fillText('Save readings to see a trend',W/2,H/2);sum.innerHTML='';return}
+  const series=showBp?[pts.map(x=>x.systolic),pts.map(x=>x.diastolic)]:[pts.map(x=>x.bpm)];
+  const flat=series.flat();let lo=Math.min(...flat),hi=Math.max(...flat);const span=Math.max(10,hi-lo);lo=Math.floor((lo-span*.15)/5)*5;hi=Math.ceil((hi+span*.15)/5)*5;
+  const X=i=>pad.l+(pts.length===1?(W-pad.l-pad.r)/2:i*(W-pad.l-pad.r)/(pts.length-1)),Y=v=>pad.t+(hi-v)/(hi-lo)*(H-pad.t-pad.b);
+  ctx.strokeStyle=cssVar('--line');ctx.fillStyle=cssVar('--muted');ctx.lineWidth=1;ctx.textAlign='right';ctx.textBaseline='middle';
+  for(let k=0;k<=3;k++){const v=lo+(hi-lo)*k/3,y=Y(v);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();ctx.fillText(Math.round(v),pad.l-8,y)}
+  const colors=showBp?['#e0485a','#3b82c4']:[cssVar('--teal')];
+  series.forEach((s,si)=>{ctx.strokeStyle=colors[si];ctx.fillStyle=colors[si];ctx.lineWidth=3;ctx.beginPath();s.forEach((v,i)=>i?ctx.lineTo(X(i),Y(v)):ctx.moveTo(X(i),Y(v)));ctx.stroke();s.forEach((v,i)=>{ctx.beginPath();ctx.arc(X(i),Y(v),4.5,0,7);ctx.fill()})});
+  const avg=s=>Math.round(s.reduce((p,v)=>p+v,0)/s.length);
+  if(showBp){const s=series[0],d=series[1];sum.innerHTML=`<div class="stat"><span class="lbl">Average</span><div class="metric">${avg(s)}/${avg(d)}</div></div><div class="stat"><span class="lbl">Highest</span><div class="metric">${Math.max(...s)}/${d[s.indexOf(Math.max(...s))]}</div></div><div class="stat"><span class="lbl">Lowest</span><div class="metric">${Math.min(...s)}/${d[s.indexOf(Math.min(...s))]}</div></div>`}
+  else{const s=series[0];sum.innerHTML=`<div class="stat"><span class="lbl">Average</span><div class="metric">${avg(s)}</div></div><div class="stat"><span class="lbl">Highest</span><div class="metric">${Math.max(...s)}</div></div><div class="stat"><span class="lbl">Lowest</span><div class="metric">${Math.min(...s)}</div></div>`}
+}
+$('clearVitals').addEventListener('click',()=>{if(confirm('Delete all saved readings from this phone? This cannot be undone.')){store(VITALS_KEY,[]);renderHistory();renderHome();toast('History cleared.')}});
+$('exportVitals').addEventListener('click',()=>{const a=readVitals(),r=['date_time,reading_type,systolic_mmHg,diastolic_mmHg,pulse_bpm,source',...a.map(x=>[x.date,x.kind,isBp(x)?x.systolic:'',isBp(x)?x.diastolic:'',isBp(x)?(x.pulse??''):x.bpm,x.source].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','))];download('pulsecare-history.csv','text/csv;charset=utf-8',r.join('\n'));toast('History exported.')});
+
+/* ---------------- Camera PPG pulse ---------------- */
+const ppg={stream:null,active:false,raf:0,lastSample:0,samples:[],peaks:[],bpm:null,started:0,timer:0,finger:false};
+const ppgCanvas=$('ppgWave'),ppgCtx=ppgCanvas.getContext('2d');
+const RING=326.7;
+function ppgStatus(m){$('ppgStatus').textContent=m}
+function setQuality(level,label){['q1','q2','q3'].forEach((id,i)=>$(id).classList.toggle('on',i<level));$('ppgQuality').textContent=label}
+function ppgCleanup(){ppg.active=false;cancelAnimationFrame(ppg.raf);clearInterval(ppg.timer);if(ppg.stream){ppg.stream.getTracks().forEach(t=>t.stop());ppg.stream=null}$('ppgVideo').srcObject=null;$('ppgStart').disabled=false;$('ppgStop').disabled=true;$('ppgStart').textContent='Start 30-second scan'}
+function drawGrid(ctx,w,h){ctx.fillStyle='#0f2431';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#1f3a47';ctx.lineWidth=1;for(let x=0;x<w;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle='#2b5060';for(let x=0;x<w;x+=120){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}}
+function ppgDraw(){const w=ppgCanvas.width,h=ppgCanvas.height;drawGrid(ppgCtx,w,h);if(ppg.samples.length<3)return;const r=ppg.samples.slice(-120),v=r.map(s=>-s.filtered),mx=Math.max(...v),mn=Math.min(...v),rg=Math.max(2,mx-mn);ppgCtx.beginPath();ppgCtx.strokeStyle='#4de0b6';ppgCtx.lineWidth=3;v.forEach((y0,i)=>{const x=i/(Math.max(1,v.length-1))*w,y=h/2-(y0-(mx+mn)/2)/rg*(h*.75);i?ppgCtx.lineTo(x,y):ppgCtx.moveTo(x,y)});ppgCtx.stroke()}
+function beat(){const h=$('heart');h.classList.remove('beat');void h.offsetWidth;h.classList.add('beat');if(navigator.vibrate&&store('pc.vibrate')!==false)try{navigator.vibrate(15)}catch(e){}}
+function ppgAnalyze(){
+  const a=ppg.samples;if(a.length<25)return;
+  if(!ppg.finger){setQuality(0,'No finger detected');return}
+  const tail=a.slice(-100),vals=tail.map(x=>x.filtered),mean=vals.reduce((s,v)=>s+v,0)/vals.length,sd=Math.sqrt(vals.reduce((s,v)=>s+(v-mean)**2,0)/vals.length);
+  if(sd>1.4)setQuality(3,'Good');else if(sd>.55)setQuality(2,'Fair');else setQuality(1,'Weak – press gently');
+  if(sd<.35)return;
+  const now=tail[tail.length-1].t;let cand=null;
+  for(let i=Math.max(2,tail.length-5);i<tail.length-1;i++){if(tail[i].filtered>tail[i-1].filtered&&tail[i].filtered>=tail[i+1].filtered&&tail[i].filtered>mean+sd*.65)cand=tail[i]}
+  if(!cand)return;const last=ppg.peaks[ppg.peaks.length-1];if(last&&cand.t-last<=350)return;
+  ppg.peaks.push(cand.t);beat();ppg.peaks=ppg.peaks.filter(t=>now-t<12000);if(ppg.peaks.length<3)return;
+  const iv=[];for(let i=1;i<ppg.peaks.length;i++){const d=ppg.peaks[i]-ppg.peaks[i-1];if(d>=350&&d<=1500)iv.push(d)}
+  if(!iv.length)return;iv.sort((x,y)=>x-y);const est=Math.round(60000/iv[Math.floor(iv.length/2)]);
+  if(est>=40&&est<=180){ppg.bpm=est;$('ppgBpm').textContent=est}
+}
+function ppgFinish(){if(!ppg.active)return;if(ppg.bpm){savePulse('Pulse rate (PPG)',ppg.bpm,'Camera fingertip scan');ppgStatus('Scan complete – '+ppg.bpm+' BPM saved to your history.');toast('Pulse '+ppg.bpm+' BPM saved.')}else ppgStatus('Scan complete, but no reliable pulse was found. Keep your fingertip still over camera and flash, then retry.');ppgCleanup()}
+async function ppgStart(){
+  if(ppg.active)return;
+  ppg.bpm=null;$('ppgBpm').textContent='--';$('ringProg').style.strokeDashoffset=RING;setQuality(0,'Starting…');
+  if(!window.isSecureContext){ppgStatus('The camera needs a secure (https://) address. Open the installed app or the https link.');return}
+  if(!navigator.mediaDevices?.getUserMedia){ppgStatus('This browser has no camera access. Use Chrome, Samsung Internet or Safari.');return}
+  try{
+    ppgStatus('Requesting camera permission…');$('ppgStart').disabled=true;
+    let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:640},height:{ideal:480}}})}catch(e1){if(e1.name==='NotAllowedError')throw e1;stream=await navigator.mediaDevices.getUserMedia({audio:false,video:true})}
+    ppg.stream=stream;const track=stream.getVideoTracks()[0];let torch=false;
+    try{if(track?.getCapabilities?.().torch){await track.applyConstraints({advanced:[{torch:true}]});torch=true}}catch(e){}
+    const video=$('ppgVideo');video.srcObject=stream;try{await video.play()}catch(e){throw new Error('Camera opened but playback was blocked. Tap Start again.')}
+    Object.assign(ppg,{active:true,samples:[],peaks:[],bpm:null,started:Date.now(),lastSample:0,finger:false});
+    $('ppgStop').disabled=false;$('ppgStart').textContent='Scanning…';
+    ppgStatus(torch?'Flash on. Cover the rear camera and flash with your fingertip; keep still.':'Cover the rear camera with your fingertip. (Flash unavailable on this browser – use good light.)');
+    const c=document.createElement('canvas');c.width=32;c.height=32;const cx=c.getContext('2d',{willReadFrequently:true});
+    const frame=t=>{if(!ppg.active)return;ppg.raf=requestAnimationFrame(frame);if(t-ppg.lastSample<60||video.readyState<2)return;ppg.lastSample=t;
+      try{cx.drawImage(video,0,0,32,32);const d=cx.getImageData(0,0,32,32).data;let r=0,g=0,n=0;for(let y=6;y<26;y++)for(let x=6;x<26;x++){const i=(y*32+x)*4;r+=d[i];g+=d[i+1];n++}r/=n;g/=n;
+        ppg.finger=r>90&&r>g*1.5;
+        const rec=ppg.samples.slice(-20),base=rec.length?rec.reduce((s,v)=>s+v.raw,0)/rec.length:r;
+        ppg.samples.push({t:Date.now(),raw:r,filtered:r-base});if(ppg.samples.length>240)ppg.samples.shift();
+        ppgAnalyze();ppgDraw()}catch(e){ppgStatus('Camera signal could not be read. Try Chrome or Samsung Internet.');ppgCleanup();return}
+      const el=Date.now()-ppg.started;$('ringProg').style.strokeDashoffset=RING*(1-Math.min(1,el/30000));
+      if(!ppg.finger)ppgStatus('Place your fingertip over the rear camera and flash.');else if(!ppg.bpm)ppgStatus('Finger detected – hold still… '+Math.max(0,30-Math.floor(el/1000))+' s');else ppgStatus('Measuring… '+Math.max(0,30-Math.floor(el/1000))+' s remaining');
+    };
+    ppg.raf=requestAnimationFrame(frame);
+    ppg.timer=setInterval(()=>{if(ppg.active&&Date.now()-ppg.started>=30000)ppgFinish()},250);
+  }catch(e){ppgCleanup();let m=e.message||'Unable to start camera.';
+    if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError')m='Camera permission denied. Allow Camera for this app in your browser/site settings, then retry.';
+    else if(e.name==='NotFoundError')m='No camera was found on this device.';
+    else if(e.name==='NotReadableError')m='The camera is in use by another app. Close it and retry.';
+    ppgStatus(m);setQuality(0,'Not started')}
+}
+$('ppgStart').addEventListener('click',ppgStart);
+$('ppgStop').addEventListener('click',()=>{ppgStatus(ppg.bpm?'Stopped. Last estimate '+ppg.bpm+' BPM (not saved).':'Stopped before a reliable reading.');ppgCleanup()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(ppg.active){ppgStatus('Scan stopped because the app went into the background.');ppgCleanup()}stopCamera()}});
+ppgDraw();
+
+/* ---------------- ECG image capture ---------------- */
+let camStream=null,imageData='',imageName='';
+document.querySelectorAll('[data-seg]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-seg]').forEach(x=>{x.setAttribute('aria-selected',x===b);$(x.dataset.seg).hidden=x!==b});if(b.dataset.seg!=='segPhoto')stopCamera()}));
+function stopCamera(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}$('video').srcObject=null;$('video').hidden=true;$('captureBtn').hidden=true;$('cameraBtn').hidden=false;if(!imageData)$('placeholder').hidden=false}
+function showImage(data,name){imageData=data;imageName=name||'ecg-image.jpg';stopCamera();$('preview').src=data;$('preview').hidden=false;$('placeholder').hidden=true;$('retakeBtn').hidden=false;$('cameraStatus').textContent='Image attached to your report.';updateReport();toast('ECG image added to report.')}
+async function openCamera(){$('cameraError').hidden=true;if(!navigator.mediaDevices?.getUserMedia){$('cameraError').textContent='Camera unavailable here – choose a photo instead.';$('cameraError').hidden=false;return}
+  try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920}},audio:false});$('video').srcObject=camStream;$('video').hidden=false;$('preview').hidden=true;$('placeholder').hidden=true;$('cameraBtn').hidden=true;$('captureBtn').hidden=false;$('cameraStatus').textContent='Frame the strip, then tap Capture.'}
+  catch(e){$('cameraError').textContent=e.name==='NotAllowedError'?'Camera permission was not granted. Allow it in settings or choose a photo.':'Could not open the camera. Choose a photo instead.';$('cameraError').hidden=false}}
+$('cameraBtn').addEventListener('click',openCamera);
+$('captureBtn').addEventListener('click',()=>{const v=$('video');if(!v.videoWidth){toast('Camera is still starting…');return}const c=document.createElement('canvas');const s=Math.min(1,1600/v.videoWidth);c.width=v.videoWidth*s;c.height=v.videoHeight*s;c.getContext('2d').drawImage(v,0,0,c.width,c.height);showImage(c.toDataURL('image/jpeg',.88),'ecg-capture.jpg')});
+$('uploadBtn').addEventListener('click',()=>$('fileInput').click());
+$('fileInput').addEventListener('change',e=>{const f=e.target.files?.[0];e.target.value='';if(!f)return;if(!f.type.startsWith('image/')){toast('Choose an image file.');return}const r=new FileReader();r.onload=()=>showImage(r.result,f.name);r.readAsDataURL(f)});
+$('retakeBtn').addEventListener('click',()=>{imageData='';imageName='';$('preview').hidden=true;$('placeholder').hidden=false;$('retakeBtn').hidden=true;$('cameraStatus').textContent='Photograph a printed ECG or pick an existing photo.';updateReport()});
+
+/* ---------------- Bluetooth ---------------- */
+const ble={hrDevice:null,hrChar:null,hrBpm:null,bpDevice:null,bpChar:null,ecgDevice:null,ecgChar:null,ecg:[]};
+function needBt(statusEl){if(!window.isSecureContext||!hasBluetooth){$(statusEl).textContent='Bluetooth is not available in this browser. Use Chrome on Android (iPhone browsers do not support Web Bluetooth).';return false}return true}
+const bleErr=e=>e.name==='NotFoundError'?'No device selected.':e.name==='SecurityError'?'Bluetooth permission was blocked.':'Connection failed: '+e.message;
+
+// Heart-rate service (BPM only)
+function hrNotify(ev){const v=ev.target.value,f=v.getUint8(0),bpm=(f&1)?v.getUint16(1,true):v.getUint8(1);if(bpm>0&&bpm<300){ble.hrBpm=bpm;$('bleHrBpm').innerHTML=bpm+'<small>BPM</small>';$('bleHrUse').disabled=false}}
+$('bleHrConnect').addEventListener('click',async()=>{if(!needBt('bleHrStatus'))return;try{$('bleHrStatus').textContent='Choose your heart-rate sensor…';const d=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}]});ble.hrDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.hrChar=null;$('bleHrDisconnect').disabled=true;$('bleHrConnect').disabled=false;$('bleHrStatus').textContent='Sensor disconnected.'});const s=await d.gatt.connect(),svc=await s.getPrimaryService('heart_rate');ble.hrChar=await svc.getCharacteristic('heart_rate_measurement');await ble.hrChar.startNotifications();ble.hrChar.addEventListener('characteristicvaluechanged',hrNotify);$('bleHrDisconnect').disabled=false;$('bleHrConnect').disabled=true;$('bleHrStatus').textContent='Connected to '+(d.name||'sensor')+'. Receiving heart rate…'}catch(e){$('bleHrStatus').textContent=bleErr(e)}});
+$('bleHrDisconnect').addEventListener('click',()=>{if(ble.hrDevice?.gatt?.connected)ble.hrDevice.gatt.disconnect()});
+$('bleHrUse').addEventListener('click',()=>{if(ble.hrBpm&&savePulse('Heart rate (BLE)',ble.hrBpm,'Bluetooth heart-rate sensor'))toast(ble.hrBpm+' BPM saved.')});
+
+// Blood-pressure service
+function sfloat(v,o){let raw=v.getUint16(o,true),m=raw&0x0fff,e=(raw>>12)&0x0f;if(m&0x0800)m-=0x1000;if(e&0x08)e-=0x10;return m*Math.pow(10,e)}
+function bpNotify(ev){try{const v=ev.target.value,f=v.getUint8(0);let sys=sfloat(v,1),dia=sfloat(v,3),map=sfloat(v,5),p=7,pulse=null;if(f&0x02)p+=7;if(f&0x04)pulse=sfloat(v,p);const k=(f&1)?7.50062:1;sys=Math.round(sys*k);dia=Math.round(dia*k);map=Math.round(map*k);
+  if(!(sys>dia&&sys>=40&&sys<=300&&dia>=20&&dia<=200))throw new Error('invalid values');
+  $('bleBpSys').innerHTML=sys+'<small>mmHg</small>';$('bleBpDia').innerHTML=dia+'<small>mmHg</small>';$('bleBpMap').innerHTML=map+'<small>mmHg</small>';$('bleBpPulse').innerHTML=(pulse?Math.round(pulse):'--')+'<small>BPM</small>';
+  addVital({kind:'Blood pressure',systolic:sys,diastolic:dia,pulse:pulse?Math.round(pulse):null,source:'Bluetooth BP cuff'});$('bleBpStatus').textContent='Saved '+sys+'/'+dia+' mmHg from the cuff.';toast('BP '+sys+'/'+dia+' saved.')}catch(e){$('bleBpStatus').textContent='Could not decode BP reading ('+e.message+').'}}
+$('bleBpConnect').addEventListener('click',async()=>{if(!needBt('bleBpStatus'))return;try{$('bleBpStatus').textContent='Searching for compatible BP cuffs…';const d=await navigator.bluetooth.requestDevice({filters:[{services:['blood_pressure']}]});ble.bpDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.bpChar=null;$('bleBpDisconnect').disabled=true;$('bleBpConnect').disabled=false;$('bleBpStatus').textContent='BP monitor disconnected.'});const s=await d.gatt.connect(),svc=await s.getPrimaryService('blood_pressure');ble.bpChar=await svc.getCharacteristic('blood_pressure_measurement');await ble.bpChar.startNotifications();ble.bpChar.addEventListener('characteristicvaluechanged',bpNotify);$('bleBpDisconnect').disabled=false;$('bleBpConnect').disabled=true;$('bleBpStatus').textContent='Connected to '+(d.name||'BP monitor')+'. Start a measurement on the cuff.'}catch(e){$('bleBpStatus').textContent=bleErr(e)}});
+$('bleBpDisconnect').addEventListener('click',()=>{if(ble.bpDevice?.gatt?.connected)ble.bpDevice.gatt.disconnect()});
+
+// Manual BP
+function readBpForm(){const s=$('bpSystolic').value.trim(),d=$('bpDiastolic').value.trim(),p=$('bpPulse').value.trim();if(!s||!d)return{ok:false,msg:'Enter both systolic and diastolic values.'};const a=+s,b=+d,c=p===''?null:+p;if(!Number.isInteger(a)||a<50||a>260)return{ok:false,msg:'Systolic must be a whole number from 50 to 260.'};if(!Number.isInteger(b)||b<30||b>160)return{ok:false,msg:'Diastolic must be a whole number from 30 to 160.'};if(a<=b)return{ok:false,msg:'Systolic must be higher than diastolic.'};if(c!==null&&(!Number.isInteger(c)||c<30||c>220))return{ok:false,msg:'Pulse must be a whole number from 30 to 220.'};return{ok:true,s:a,d:b,p:c}}
+function bpPreview(){const r=readBpForm(),b=$('bpCategory');if(!r.ok){b.hidden=true;return}const[t,col]=bpCategory(r.s,r.d);b.textContent=t;b.style.color=col;b.hidden=false}
+['bpSystolic','bpDiastolic','bpPulse'].forEach(id=>$(id).addEventListener('input',bpPreview));
+$('saveBp').addEventListener('click',()=>{const r=readBpForm();if(!r.ok){$('bpStatus').textContent=r.msg;$('bpStatus').style.color='var(--danger)';return}if(addVital({kind:'Blood pressure',systolic:r.s,diastolic:r.d,pulse:r.p,source:'Manual entry'})){$('bpStatus').style.color='';$('bpStatus').textContent='Saved '+r.s+'/'+r.d+' mmHg.';toast('BP reading saved.');['bpSystolic','bpDiastolic','bpPulse'].forEach(id=>$(id).value='');bpPreview()}});
+
+// Generic BLE ECG stream (int16 LE)
+const ecgCanvas=$('bleEcgWave'),ecgCtx=ecgCanvas.getContext('2d');let ecgDrawPending=false;
+const ecgHz=()=>Math.max(1,Number($('ecgSampleRate').value)||250);
+function drawEcg(){ecgDrawPending=false;const w=ecgCanvas.width,h=ecgCanvas.height;drawGrid(ecgCtx,w,h);const a=ble.ecg.slice(-Math.round(ecgHz()*4));if(a.length<2)return;const mn=Math.min(...a),mx=Math.max(...a),rg=Math.max(100,mx-mn);ecgCtx.beginPath();ecgCtx.strokeStyle='#4de0b6';ecgCtx.lineWidth=2.5;a.forEach((v,i)=>{const x=i/(a.length-1)*w,y=h/2-(v-(mx+mn)/2)/rg*(h*.8);i?ecgCtx.lineTo(x,y):ecgCtx.moveTo(x,y)});ecgCtx.stroke()}
+function ecgNotify(ev){const v=ev.target.value;for(let i=0;i+1<v.byteLength;i+=2)ble.ecg.push(v.getInt16(i,true));if(ble.ecg.length>ecgHz()*300)ble.ecg.splice(0,ble.ecg.length-ecgHz()*300);$('ecgSampleCount').textContent=ble.ecg.length+' samples';$('ecgDuration').innerHTML=(ble.ecg.length/ecgHz()).toFixed(1)+'<small>s</small>';$('ecgCsvBtn').disabled=false;if(!ecgDrawPending){ecgDrawPending=true;requestAnimationFrame(drawEcg)}}
+$('ecgSampleRate').addEventListener('input',()=>{$('ecgRateShow').innerHTML=ecgHz()+'<small>Hz</small>';store('pc.ecgCfg',{su:$('ecgServiceUuid').value,cu:$('ecgCharUuid').value,hz:$('ecgSampleRate').value})});
+['ecgServiceUuid','ecgCharUuid'].forEach(id=>$(id).addEventListener('change',()=>store('pc.ecgCfg',{su:$('ecgServiceUuid').value,cu:$('ecgCharUuid').value,hz:$('ecgSampleRate').value})));
+(()=>{const c=store('pc.ecgCfg');if(c){$('ecgServiceUuid').value=c.su||'';$('ecgCharUuid').value=c.cu||'';$('ecgSampleRate').value=c.hz||250;$('ecgRateShow').innerHTML=ecgHz()+'<small>Hz</small>'}})();
+$('ecgBleConnect').addEventListener('click',async()=>{if(!needBt('ecgBleStatus'))return;const norm=u=>/^[0-9a-f]{4}$/i.test(u)?parseInt(u,16):u.toLowerCase();const su=$('ecgServiceUuid').value.trim(),cu=$('ecgCharUuid').value.trim();if(!su||!cu){$('ecgBleStatus').textContent='Enter the service and characteristic UUIDs from your device documentation.';return}
+  try{$('ecgBleStatus').textContent='Choose your ECG device…';const d=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[norm(su)]});ble.ecgDevice=d;d.addEventListener('gattserverdisconnected',()=>{ble.ecgChar=null;$('ecgBleDisconnect').disabled=true;$('ecgBleConnect').disabled=false;$('ecgBleStatus').textContent='ECG device disconnected.'});const s=await d.gatt.connect(),svc=await s.getPrimaryService(norm(su)),ch=await svc.getCharacteristic(norm(cu));if(!ch.properties.notify&&!ch.properties.indicate)throw new Error('that characteristic does not send notifications');ble.ecgChar=ch;ble.ecg=[];await ch.startNotifications();ch.addEventListener('characteristicvaluechanged',ecgNotify);$('ecgBleDisconnect').disabled=false;$('ecgBleConnect').disabled=true;$('ecgBleStatus').textContent='Receiving raw samples from '+(d.name||'device')+'.'}catch(e){$('ecgBleStatus').textContent=bleErr(e)}});
+$('ecgBleDisconnect').addEventListener('click',()=>{if(ble.ecgDevice?.gatt?.connected)ble.ecgDevice.gatt.disconnect()});
+$('ecgCsvBtn').addEventListener('click',()=>{const hz=ecgHz(),r=['sample_index,time_s,raw_sample'];ble.ecg.forEach((v,i)=>r.push(i+','+(i/hz).toFixed(6)+','+v));download('ecg-samples.csv','text/csv;charset=utf-8',r.join('\n'));toast('ECG samples downloaded.')});
+drawEcg();
+
+/* ---------------- Report ---------------- */
+function localNow(){const n=new Date();n.setMinutes(n.getMinutes()-n.getTimezoneOffset());return n.toISOString().slice(0,16)}
+function prefillReport(){const p=store('pc.profile')||{};if(!$('patient').value)$('patient').value=[p.name,p.id].filter(Boolean).join(' · ');if(!$('recorded').value)$('recorded').value=localNow();const a=readVitals();const lp=[...a].reverse().find(x=>!isBp(x));if(!$('rate').value&&lp){$('rate').value=lp.bpm;if(!$('lead').value)$('lead').value=lp.source}updateReport()}
+function latestBp(){return [...readVitals()].reverse().find(isBp)}
+function fields(){const b=latestBp();return[
+  ['Patient / reference',$('patient').value.trim()||'Not provided'],
+  ['Date and time',$('recorded').value?new Date($('recorded').value).toLocaleString():'Not provided'],
+  ['Heart rate',$('rate').value?$('rate').value+' BPM':'Not provided'],
+  ['Lead / source',$('lead').value.trim()||'Not provided'],
+  ['Latest blood pressure',b?b.systolic+'/'+b.diastolic+' mmHg'+(b.pulse?' · pulse '+b.pulse+' BPM':'')+' ('+new Date(b.date).toLocaleString()+')':'Not recorded'],
+  ['ECG image',imageName||'No image attached'],
+  ['ECG device samples',ble.ecg.length?ble.ecg.length+' samples at '+ecgHz()+' Hz ('+(ble.ecg.length/ecgHz()).toFixed(1)+' s)':'None'],
+  ['Notes',$('notes').value.trim()||'None'],
+  ['Interpretation','Not provided by this app – for clinician review']]}
+function updateReport(){const rows=$('reportRows');rows.innerHTML='';fields().forEach(([k,v])=>{const tr=document.createElement('tr');const th=document.createElement('th');th.textContent=k;const td=document.createElement('td');td.textContent=v;td.style.whiteSpace=k==='Notes'?'pre-wrap':'';tr.append(th,td);rows.append(tr)});$('printPhoto').hidden=!imageData;if(imageData)$('printPhoto').src=imageData;$('imgBadge').textContent=imageData?'ECG image attached':'No ECG image';$('printDate').textContent=new Date().toLocaleString()}
+document.querySelectorAll('#report input,#report textarea').forEach(el=>el.addEventListener('input',updateReport));
+$('pdfBtn').addEventListener('click',()=>{updateReport();window.print()});
+$('excelBtn').addEventListener('click',()=>{const rows=fields();const xml=`<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="Report"><Table><Row><Cell><Data ss:Type="String">PulseCare ECG &amp; Vitals Report</Data></Cell></Row>${rows.map(([k,v])=>`<Row><Cell><Data ss:Type="String">${esc(k)}</Data></Cell><Cell><Data ss:Type="String">${esc(v)}</Data></Cell></Row>`).join('')}</Table></Worksheet><Worksheet ss:Name="History"><Table><Row><Cell><Data ss:Type="String">Date</Data></Cell><Cell><Data ss:Type="String">Type</Data></Cell><Cell><Data ss:Type="String">Reading</Data></Cell><Cell><Data ss:Type="String">Source</Data></Cell></Row>${readVitals().map(x=>`<Row><Cell><Data ss:Type="String">${esc(new Date(x.date).toLocaleString())}</Data></Cell><Cell><Data ss:Type="String">${esc(x.kind)}</Data></Cell><Cell><Data ss:Type="String">${esc(fmtVal(x))}</Data></Cell><Cell><Data ss:Type="String">${esc(x.source)}</Data></Cell></Row>`).join('')}</Table></Worksheet></Workbook>`;download('pulsecare-report.xls','application/vnd.ms-excel;charset=utf-8',xml);toast('Excel report downloaded.')});
+$('wordBtn').addEventListener('click',()=>{const rows=fields().map(([k,v])=>`<tr><th align="left" style="background:#f2f5f6">${esc(k)}</th><td>${esc(v).replace(/\n/g,'<br>')}</td></tr>`).join('');const photo=imageData?`<h2>ECG image</h2><img style="max-width:100%;max-height:420px" src="${imageData}">`:'';const doc=`<!doctype html><html><head><meta charset="utf-8"><title>ECG Report</title></head><body style="font:11pt Arial;color:#162b3d"><h1>ECG &amp; Vitals Report</h1><p>Created ${esc(new Date().toLocaleString())} with PulseCare</p><table border="1" cellspacing="0" cellpadding="7" style="border-collapse:collapse;width:100%">${rows}</table>${photo}<p style="font-size:9pt;color:#555"><b>Important:</b> contains a photograph and user-entered or device-reported values only. Not an ECG interpretation or diagnosis.</p></body></html>`;download('pulsecare-report.doc','application/msword;charset=utf-8',doc);toast('Word report downloaded.')});
+if(navigator.share){$('shareBtn').hidden=false;$('shareBtn').addEventListener('click',async()=>{const text='PulseCare report\n'+fields().map(([k,v])=>k+': '+v).join('\n');try{const files=[];if(imageData&&navigator.canShare){const blob=await (await fetch(imageData)).blob();const f=new File([blob],imageName||'ecg.jpg',{type:blob.type});if(navigator.canShare({files:[f]}))files.push(f)}await navigator.share(files.length?{title:'PulseCare report',text,files}:{title:'PulseCare report',text})}catch(e){if(e.name!=='AbortError')toast('Sharing failed.')}})}
+
+/* ---------------- Settings ---------------- */
+$('appVersion').textContent=APP_VERSION;
+$('settingsBtn').addEventListener('click',()=>{const p=store('pc.profile')||{};$('profileName').value=p.name||'';$('profileId').value=p.id||'';$('offlineState').textContent=navigator.serviceWorker?.controller?'Works offline ✓':'Offline support activates after first load';$('settingsDlg').showModal()});
+$('settingsDlg').addEventListener('close',()=>{if($('settingsDlg').returnValue==='save'){store('pc.profile',{name:$('profileName').value.trim(),id:$('profileId').value.trim()});$('patient').value='';renderHome();toast('Profile saved.')}});
+
+/* ---------------- Install (PWA) ---------------- */
+let deferredPrompt=null;const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false;$('installCard').hidden=false});
+async function doInstall(){if(deferredPrompt){deferredPrompt.prompt();const r=await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true;$('installCard').hidden=true;if(r.outcome==='accepted')toast('PulseCare installed!')}else toast('Use your browser menu → “Add to Home Screen”.')}
+$('installBtn').addEventListener('click',doInstall);$('installBtn2').addEventListener('click',doInstall);
+window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true;$('installCard').hidden=true});
+if(!standalone&&/iPhone|iPad|iPod/.test(navigator.userAgent)){$('installCard').hidden=false;$('installBtn2').hidden=true;$('installHint').textContent='In Safari tap Share → “Add to Home Screen” to install.'}
+if('serviceWorker' in navigator&&location.protocol==='https:')window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
+/* ---------------- Boot ---------------- */
+window.addEventListener('pagehide',()=>{ppgCleanup();stopCamera();[ble.hrDevice,ble.bpDevice,ble.ecgDevice].forEach(d=>{try{d?.gatt?.connected&&d.gatt.disconnect()}catch(e){}})});
+show(location.hash.slice(1)||'home');
+</script>
+</body>
+</html>
