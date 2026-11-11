@@ -2,6 +2,10 @@ name: Build PulseCare Android APK
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "android-native/**"
+      - ".github/workflows/android-apk.yml"
   push:
     paths:
       - "android-native/**"
