@@ -144,6 +144,7 @@ class MainActivity : AppCompatActivity() {
                 val preview = Preview.Builder().build().also { it.setSurfaceProvider(previewView.surfaceProvider) }
                 val analysis = ImageAnalysis.Builder()
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                     .build()
                 analysis.setAnalyzer(cameraExecutor) { image ->
                     try {
@@ -164,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                             var x = left
                             while (x < right) {
                                 val index = y * rowStride + x * pixelStride
-                                if (index < buffer.limit()) { sum += (buffer.get(index).toInt() and 0xFF); count++ }
+                                if (index + 2 < buffer.limit()) { sum += (buffer.get(index).toInt() and 0xFF); count++ }
                                 x += 5
                             }
                             y += 5
